@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:clamp",
+  "input": {
+    "type": "minecraft:add",
+    "argument1": 1,
+    "argument2": {
+      "type": "minecraft:mul",
+      "argument1": "tectonic:overworld/underground_river/noise/height",
+      "argument2": {
+        "type": "minecraft:abs",
+        "argument": {
+          "type": "minecraft:add",
+          "argument1": "tectonic:overworld/underground_river/noise/y_offset",
+          "argument2": "minecraft:y"
+        }
+      }
+    }
+  },
+  "min": 0,
+  "max": 1
+}

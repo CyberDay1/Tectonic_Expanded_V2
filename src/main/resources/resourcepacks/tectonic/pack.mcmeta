@@ -1,0 +1,59 @@
+{
+  "pack": {
+    "supported_formats": [48,71],
+    "pack_format": 71,
+    "description": [
+      "Tectonic: Everest [Beta 1]",
+      "\n",
+      "Made with ",
+      {
+        "text": "<3",
+        "color": "red"
+      },
+      " by ",
+      {
+        "text": "Apollo",
+        "color": "#b891ff"
+      }
+    ]
+  },
+  "overlays": {
+    "entries": [
+      {
+        "directory": "overlay.mod",
+        "formats": {
+          "max_inclusive": 71,
+          "min_inclusive": 48
+        }
+      }
+    ]
+  },
+  "neoforge:overlays": {
+    "entries": [
+      {
+        "directory": "overlay.increased_height",
+        "formats": [
+          1,
+          99
+        ],
+        "neoforge:conditions": [
+          {
+            "type": "tectonic:config",
+            "key": "increased_height"
+          }
+        ]
+      }
+    ]
+  },
+  "fabric:overlays": {
+    "entries": [
+      {
+        "directory": "overlay.increased_height",
+        "condition": {
+          "condition": "tectonic:config",
+          "key": "increased_height"
+        }
+      }
+    ]
+  }
+}

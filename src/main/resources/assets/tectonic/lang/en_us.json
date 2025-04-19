@@ -1,0 +1,48 @@
+{
+  "config.tectonic.title": "Tectonic Config",
+
+  "config.tectonic.category.general": "General",
+  "config.tectonic.option.mod_enabled": "Mod Enabled",
+  "config.tectonic.option.hide_beta_warning": "Hide Beta Warning",
+  "config.tectonic.option.snow_start_offset": "Snow Start Offset: %s",
+  "config.tectonic.option.snow_start_offset.tooltip": "Offsets the y-level snow starts at.\nDefault: §e128",
+
+  "config.tectonic.category.global_terrain": "Global Terrain",
+  "config.tectonic.option.vertical_scale": "Vertical Scale: %s",
+  "config.tectonic.option.increased_height": "Increased Height",
+  "config.tectonic.option.increased_height.tooltip": "Increases the max build and generation height to y640.",
+  "config.tectonic.option.lava_rivers": "Lava Rivers",
+  "config.tectonic.option.lava_rivers.tooltip": "Toggles the deep underground rivers at the lava level.",
+
+  "config.tectonic.category.continents": "Continents",
+  "config.tectonic.option.ocean_offset": "Ocean Offset: %s",
+  "config.tectonic.option.ocean_offset.tooltip": "Skews terrain towards or away from oceans. Lower values = more oceans.\nDefault: §e-0.8",
+  "config.tectonic.option.continents_scale": "Continents Scale: %s",
+  "config.tectonic.option.continents_scale.tooltip": "Horizontally scales continents. Lower values = larger continents and oceans between them.\nDefault: §e0.13",
+  "config.tectonic.option.erosion_scale": "Erosion Scale: %s",
+  "config.tectonic.option.erosion_scale.tooltip": "Horizontally scales erosion, primarily impacting mountains. Lower values = thicker mountain ranges and terrain between them.\nDefault: §e0.25",
+  "config.tectonic.option.underground_rivers": "Underground Rivers",
+  "config.tectonic.option.flat_terrain_skew": "Flat Terrain Skew: %s",
+  "config.tectonic.option.flat_terrain_skew.tooltip": "Skews terrain towards or away from flat terrain. Lower values = more plateaus and valleys.\nDefault: §e0.1",
+
+  "config.tectonic.category.islands": "Islands",
+  "config.tectonic.option.islands_enabled": "Enabled",
+
+  "config.tectonic.category.oceans": "Oceans",
+  "config.tectonic.option.use_vanilla_shaping": "Use Vanilla Shaping",
+  "config.tectonic.option.use_vanilla_shaping.tooltip": "Removes Tectonic's custom ocean shaping, using the vanilla one instead.",
+  "config.tectonic.option.ocean_depth": "Ocean Depth: %s",
+  "config.tectonic.option.ocean_depth.tooltip": "0 is at sea level, -0.5 is 64 blocks below sea level.\nDefault: §e-0.22",
+  "config.tectonic.option.deep_ocean_depth": "Deep Ocean Depth: %s",
+  "config.tectonic.option.deep_ocean_depth.tooltip": "0 is at sea level, -0.5 is 64 blocks below sea level.\nDefault: §e-0.45",
+  "config.tectonic.option.monument_offset": "Ocean Monument Offset: %s",
+  "config.tectonic.option.monument_offset.tooltip": "Default: §e-30 §rblocks",
+  "config.tectonic.option.remove_frozen_ocean_ice": "Remove Frozen Ocean Ice",
+  "config.tectonic.option.remove_frozen_ocean_ice.tooltip": "Removes the surface ice from Frozen Oceans, making them as navigable as Deep Frozen Oceans.",
+
+  "config.tectonic.category.biomes": "Biomes",
+  "config.tectonic.option.temperature_multiplier": "Temperature Multiplier: %s",
+  "config.tectonic.option.temperature_scale": "Temperature Scale: %s",
+  "config.tectonic.option.vegetation_multiplier": "Vegetation Multiplier: %s",
+  "config.tectonic.option.vegetation_scale": "Vegetation Scale: %s"
+}
