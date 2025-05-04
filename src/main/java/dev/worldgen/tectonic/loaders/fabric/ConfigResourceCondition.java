@@ -27,7 +27,7 @@ public record ConfigResourceCondition(String key) implements ResourceCondition {
     public boolean test(@Nullable /^? >1.21.1 {^/RegistryOps.RegistryInfoLookup/^?} else {^//^HolderLookup.Provider^//^?}^/ registries) {
         return switch (this.key) {
             case "increased_height" -> ConfigHandler.getState().globalTerrain.increasedHeight;
-            case "islands" -> ConfigHandler.getState().islands.enabled;
+            case "islands" -> !ConfigHandler.getState().islands.enabled;
             case "remove_frozen_ocean_ice" -> ConfigHandler.getState().oceans.removeFrozenOceanIce;
             default -> false;
         };

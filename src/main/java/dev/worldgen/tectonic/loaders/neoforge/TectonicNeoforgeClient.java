@@ -1,3 +1,4 @@
+//? if neoforge {
 package dev.worldgen.tectonic.loaders.neoforge;
 
 import dev.worldgen.tectonic.Tectonic;
@@ -13,3 +14,4 @@ public class TectonicNeoforgeClient {
         container.registerExtensionPoint(IConfigScreenFactory.class, (modContainer, parent) -> new ConfigScreen(parent));
     }
 }
+//?}

@@ -42,6 +42,19 @@
             "key": "increased_height"
           }
         ]
+      },      
+      {
+        "directory": "overlay.terratonic",
+        "formats": [
+          1,
+          99
+        ],
+        "neoforge:conditions": [
+          {
+            "type": "neoforge:mod_loaded",
+            "modid": "terralith"
+          }
+        ]
       }
     ]
   },
@@ -52,6 +65,15 @@
         "condition": {
           "condition": "tectonic:config",
           "key": "increased_height"
+        }
+      },
+      {
+        "directory": "overlay.terratonic",
+        "condition": {
+          "condition": "fabric:all_mods_loaded",
+          "values": [
+            "terralith"
+          ]
         }
       }
     ]

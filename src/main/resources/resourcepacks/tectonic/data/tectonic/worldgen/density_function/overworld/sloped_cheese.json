@@ -11,7 +11,11 @@
           "type": "minecraft:mul",
           "argument1": {
             "type": "minecraft:add",
-            "argument1": "tectonic:overworld/depth",
+            "argument1": {
+              "type": "minecraft:add",
+              "argument1": "tectonic:overworld/depth",
+              "argument2": "tectonic:overworld/terrain_spline/offset/depth_additive"
+            },
             "argument2": {
               "type": "minecraft:add",
               "argument1": {
@@ -53,7 +57,14 @@
               }
             }
           },
-          "argument2": "tectonic:overworld/terrain_spline/factor"
+          "argument2": {
+            "type": "minecraft:range_choice",
+            "input": "tectonic:overworld/continent_selector",
+            "min_inclusive": 0.9,
+            "max_exclusive": 1.1,
+            "when_in_range": "tectonic:overworld/terrain_spline/factor/continents",
+            "when_out_of_range": "tectonic:overworld/terrain_spline/factor/islands"
+          }
         }
       }
     },
@@ -78,6 +89,16 @@
               "coordinate": "tectonic:overworld/noise/full_continents",
               "points": [
                 {
+                  "location": -1.05,
+                  "derivative": 0,
+                  "value": 1
+                },
+                {
+                  "location": -1,
+                  "derivative": 0,
+                  "value": 0
+                },
+                {
                   "location": -0.35,
                   "derivative": 0,
                   "value": 0
@@ -99,6 +120,16 @@
             "spline": {
               "coordinate": "tectonic:overworld/noise/full_continents",
               "points": [
+                {
+                  "location": -1.05,
+                  "derivative": 0,
+                  "value": 0
+                },
+                {
+                  "location": -1,
+                  "derivative": 0,
+                  "value": 1
+                },
                 {
                   "location": -0.35,
                   "derivative": 0,

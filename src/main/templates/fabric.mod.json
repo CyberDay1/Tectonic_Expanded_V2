@@ -34,7 +34,6 @@
     "worldgen_patches": "*"
   },
   "breaks": {
-    "terralith": "*",
     "continents": "*"
   }
 }

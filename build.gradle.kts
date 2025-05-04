@@ -35,7 +35,7 @@ modstitch {
     metadata {
         modId = "tectonic"
         modName = "Tectonic"
-        modVersion = "3.0.0+beta2"
+        modVersion = "3.0.0+beta3"
         modGroup = "dev.worldgen"
 
         fun <K, V> MapProperty<K, V>.populate(block: MapProperty<K, V>.() -> Unit) {
@@ -115,6 +115,7 @@ stonecutter {
 // use the modstitch.createProxyConfigurations(sourceSets["client"]) function.
 dependencies {
     modstitchModImplementation("maven.modrinth:lithostitched:${property("deps.lithostitched")}")
+    modstitchModImplementation("maven.modrinth:terralith:${property("deps.terralith")}")
     if (isFabric) {
         modstitchModImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
         modstitchModImplementation("com.terraformersmc:modmenu:${property("deps.mod_menu")}")
