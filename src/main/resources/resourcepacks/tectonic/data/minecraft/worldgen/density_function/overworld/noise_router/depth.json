@@ -1,7 +1,7 @@
 {
   "type": "minecraft:range_choice",
   "input": "minecraft:y",
-  "min_inclusive": 48,
+  "min_inclusive": 32,
   "max_exclusive": 2048,
   "when_in_range": {
     "type": "minecraft:clamp",

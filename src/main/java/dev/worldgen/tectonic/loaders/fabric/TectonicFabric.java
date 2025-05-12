@@ -1,5 +1,5 @@
 //? if fabric {
-/*package dev.worldgen.tectonic.loaders.fabric;
+package dev.worldgen.tectonic.loaders.fabric;
 
 import dev.worldgen.tectonic.Tectonic;
 import dev.worldgen.tectonic.config.ConfigHandler;
@@ -35,4 +35,4 @@ public class TectonicFabric implements ModInitializer {
         }
     }
 }
-*///?}
+//?}

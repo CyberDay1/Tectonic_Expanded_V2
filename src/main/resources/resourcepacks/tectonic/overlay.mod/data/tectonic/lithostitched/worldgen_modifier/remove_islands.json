@@ -2,13 +2,13 @@
   "fabric:load_conditions": [
     {
       "condition": "tectonic:config",
-      "key": "islands"
+      "key": "disable_islands"
     }
   ],
   "neoforge:conditions": [
     {
       "type": "tectonic:config",
-      "key": "islands"
+      "key": "disable_islands"
     }
   ],
   "type": "lithostitched:wrap_density_function",

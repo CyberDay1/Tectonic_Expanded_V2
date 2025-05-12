@@ -1,5 +1,5 @@
 //? if neoforge {
-package dev.worldgen.tectonic.loaders.neoforge;
+/*package dev.worldgen.tectonic.loaders.neoforge;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -16,9 +16,10 @@ public record ConfigResourceCondition(String key) implements ICondition {
     @Override
     public boolean test(@NotNull IContext context) {
         return switch (this.key) {
+            case "disable_islands" -> ConfigHandler.getState().islands.enabled;
             case "increased_height" -> ConfigHandler.getState().globalTerrain.increasedHeight;
-            case "islands" -> !ConfigHandler.getState().islands.enabled;
             case "remove_frozen_ocean_ice" -> ConfigHandler.getState().oceans.removeFrozenOceanIce;
+            case "river_lanterns" -> ConfigHandler.getState().continents.riverLanterns;
             default -> false;
         };
     }
@@ -28,4 +29,4 @@ public record ConfigResourceCondition(String key) implements ICondition {
         return CODEC;
     }
 }
-//?}
+*///?}

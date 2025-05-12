@@ -41,13 +41,13 @@ public class V2ConfigState {
                 0.13,
                 this.scales.erosionScale,
                 this.toggles.undergroundRivers,
+                true,
                 0.1
             ),
             new ConfigState.Islands(
                 true
             ),
             new ConfigState.Oceans(
-                true,
                 this.scales.ocean,
                 this.scales.deepOcean,
                 this.toggles.monumentOffset ? -30 : 0, // Monument offset now int

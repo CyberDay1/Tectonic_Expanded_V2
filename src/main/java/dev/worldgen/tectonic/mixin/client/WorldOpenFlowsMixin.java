@@ -47,9 +47,9 @@ public abstract class WorldOpenFlowsMixin {
             description.append(Component.literal("\nAll features present are ").withStyle(ChatFormatting.GRAY));
             description.append(Component.literal("subject to change or removal").withStyle(ChatFormatting.RED));
             description.append(Component.literal(" in the full release.").withStyle(ChatFormatting.GRAY));
-            description.append(Component.literal("\nChunk blending is currently ").withStyle(ChatFormatting.GRAY));
-            description.append(Component.literal("DISABLED").withStyle(ChatFormatting.RED));
-            description.append(Component.literal(", so backup this world if you care about it.").withStyle(ChatFormatting.GRAY));
+            description.append(Component.literal("\nChunk blending is ").withStyle(ChatFormatting.GRAY));
+            description.append(Component.literal("ENABLED").withStyle(ChatFormatting.GREEN));
+            description.append(Component.literal(", but you should still backup this world if you care about it.").withStyle(ChatFormatting.GRAY));
             description.append(Component.literal("\nTo report issues or give feedback, please visit the Tectonic github page.").withStyle(ChatFormatting.GRAY));
 
             description.append(Component.literal("\n\nDo you wish to proceed?").withStyle(ChatFormatting.YELLOW));

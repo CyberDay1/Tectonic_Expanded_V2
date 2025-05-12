@@ -1,5 +1,5 @@
 //? if neoforge {
-package dev.worldgen.tectonic.loaders.neoforge;
+/*package dev.worldgen.tectonic.loaders.neoforge;
 
 import com.mojang.serialization.MapCodec;
 import dev.worldgen.tectonic.Tectonic;
@@ -75,4 +75,4 @@ public class TectonicNeoforge {
         }
     }
 }
-//?}
+*///?}

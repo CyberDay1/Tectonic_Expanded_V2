@@ -15,9 +15,7 @@
           "argument2": {
             "type": "minecraft:mul",
             "argument1": -1,
-            "argument2": {
-              "type": "minecraft:blend_alpha"
-            }
+            "argument2": "tectonic:common/blend_alpha"
           }
         }
       },
@@ -51,9 +49,7 @@
             }
           }
         },
-        "argument2": {
-          "type": "minecraft:blend_alpha"
-        }
+        "argument2": "tectonic:common/blend_alpha"
       }
     }
   }

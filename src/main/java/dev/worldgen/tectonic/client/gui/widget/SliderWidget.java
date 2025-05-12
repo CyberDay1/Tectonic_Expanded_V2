@@ -10,7 +10,6 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.navigation.CommonInputs;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -18,8 +17,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 //? if >1.21.1 {
-import net.minecraft.util.ARGB;
-//?}
+/*import net.minecraft.util.ARGB;
+*///?}
 
 import java.util.function.Consumer;
 
@@ -38,7 +37,7 @@ public class SliderWidget extends AbstractWidget {
     private boolean canChangeValue;
     protected boolean displayInt;
 
-    public SliderWidget(double min, double max, double step, String suffix, Consumer<Double> action, double value, boolean displayInt, boolean showTooltip) {
+    public SliderWidget(double min, double max, double step, String suffix, Consumer<Double> action, double value, boolean displayInt, double base) {
         super(0, 0, 0, 0, CommonComponents.EMPTY);
         this.min = min;
         this.max = max;
@@ -49,9 +48,16 @@ public class SliderWidget extends AbstractWidget {
         this.delta = valueToDelta();
         this.displayInt = displayInt;
 
-        if (showTooltip) {
-            this.setTooltip(Tooltip.create(Component.translatable(this.name+".tooltip")));
+        MutableComponent text = Component.empty();
+        text.append(Component.translatable(this.name + ".tooltip"));
+        text.append(CommonComponents.NEW_LINE);
+        text.append(Component.translatable("config.tectonic.default"));
+        if (this.displayInt) {
+            text.append("§e" + (int) base);
+        } else {
+            text.append("§e" + base);
         }
+        this.setTooltip(Tooltip.create(text));
         this.updateMessage();
     }
 
@@ -82,12 +88,12 @@ public class SliderWidget extends AbstractWidget {
     public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         Minecraft minecraft = Minecraft.getInstance();
         //? if >1.21.1 {
-        guiGraphics.blitSprite(RenderType::guiTextured, this.getSprite(), this.getX(), this.getY(), this.getWidth(), this.getHeight(), ARGB.white(this.alpha));
+        /*guiGraphics.blitSprite(RenderType::guiTextured, this.getSprite(), this.getX(), this.getY(), this.getWidth(), this.getHeight(), ARGB.white(this.alpha));
         guiGraphics.blitSprite(RenderType::guiTextured, this.getHandleSprite(), this.getX() + (int)(this.delta * (double)(this.width - 8)), this.getY(), 8, this.getHeight(), ARGB.white(this.alpha));
-        //?} else {
-        /*guiGraphics.blitSprite(this.getSprite(), this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        *///?} else {
+        guiGraphics.blitSprite(this.getSprite(), this.getX(), this.getY(), this.getWidth(), this.getHeight());
         guiGraphics.blitSprite(this.getHandleSprite(), this.getX() + (int)(this.delta * (double)(this.width - 8)), this.getY(), 8, this.getHeight());
-        *///?}
+        //?}
         int k = this.active ? 16777215 : 10526880;
         this.renderScrollingString(guiGraphics, minecraft.font, 2, k | Mth.ceil(this.alpha * 255.0F) << 24);
     }

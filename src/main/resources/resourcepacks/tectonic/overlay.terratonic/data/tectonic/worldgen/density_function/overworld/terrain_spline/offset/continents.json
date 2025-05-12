@@ -36,12 +36,12 @@
             }
           },
           {
-            "location": -0.185,
+            "location": -0.195,
             "derivative": 0,
             "value": -0.14
           },
           {
-            "location": -0.12,
+            "location": -0.155,
             "derivative": 0,
             "value": {
               "coordinate": "tectonic:overworld/noise/continent/erosion_folded",
@@ -157,7 +157,7 @@
                   }
                 },
                 {
-                  "location": 0.975,
+                  "location": 0.95,
                   "derivative": 0,
                   "value": {
                     "coordinate": "tectonic:overworld/noise/continent/ridges_folded",
@@ -176,7 +176,7 @@
                   }
                 },
                 {
-                  "location": 1.025,
+                  "location": 1.075,
                   "derivative": 0,
                   "value": {
                     "coordinate": "tectonic:overworld/noise/continent/ridges_folded",

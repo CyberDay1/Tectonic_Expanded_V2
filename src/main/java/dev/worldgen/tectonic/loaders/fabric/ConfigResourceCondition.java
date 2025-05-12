@@ -1,5 +1,5 @@
 //? if fabric {
-/*package dev.worldgen.tectonic.loaders.fabric;
+package dev.worldgen.tectonic.loaders.fabric;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -24,13 +24,14 @@ public record ConfigResourceCondition(String key) implements ResourceCondition {
     }
 
     @Override
-    public boolean test(@Nullable /^? >1.21.1 {^/RegistryOps.RegistryInfoLookup/^?} else {^//^HolderLookup.Provider^//^?}^/ registries) {
+    public boolean test(@Nullable /*? >1.21.1 {*//*RegistryOps.RegistryInfoLookup*//*?} else {*/HolderLookup.Provider/*?}*/ registries) {
         return switch (this.key) {
+            case "disable_islands" -> ConfigHandler.getState().islands.enabled;
             case "increased_height" -> ConfigHandler.getState().globalTerrain.increasedHeight;
-            case "islands" -> !ConfigHandler.getState().islands.enabled;
             case "remove_frozen_ocean_ice" -> ConfigHandler.getState().oceans.removeFrozenOceanIce;
+            case "river_lanterns" -> ConfigHandler.getState().continents.riverLanterns;
             default -> false;
         };
     }
 }
-*///?}
+//?}
