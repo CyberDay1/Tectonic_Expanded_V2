@@ -1,9 +1,6 @@
 {
   "type": "lithostitched:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": [
-    "tectonic:river_lichen",
-    "tectonic:river_lanterns"
-  ],
+  "features": "tectonic:river_lichen",
   "step": "vegetal_decoration"
 }

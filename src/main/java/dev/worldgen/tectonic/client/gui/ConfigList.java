@@ -8,6 +8,9 @@ import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -23,20 +26,26 @@ public class ConfigList extends ContainerObjectSelectionList<ConfigList.Entry> {
         this.addEntry(new StringWidget(ConfigScreen.text("category."+name), font));
     }
 
-    public void addBoolean(String name, boolean value, Consumer<Boolean> setter, boolean tooltip) {
-        CycleButton<Boolean> button = CycleButton.onOffBuilder(value).create(option(name), (__, bool) -> setter.accept(bool));
-        if (tooltip) {
-            button.setTooltip(Tooltip.create(option(name + ".tooltip")));
-        }
-        this.addEntry(button);
+    public void addBoolean(String name, Consumer<Boolean> setter, boolean value, boolean base) {
+        CycleButton.Builder<Boolean> button = CycleButton.onOffBuilder(value);
+
+        MutableComponent text = Component.empty();
+        text.append(option(name + ".tooltip"));
+        text.append(CommonComponents.NEW_LINE);
+        text.append(Component.translatable("config.tectonic.default"));
+        text.append(base ? "§eON" : "§eOFF");
+
+        button.withTooltip(__ -> Tooltip.create(text));
+
+        this.addEntry(button.create(option(name), (__, bool) -> setter.accept(bool)));
     }
 
-    public void addInteger(String name, double min, double max, Consumer<Integer> action, double value, boolean tooltip) {
-        this.addEntry(new SliderWidget(min, max, 1, "option." + name, newValue -> action.accept(newValue.intValue()), value, true, tooltip));
+    public void addInteger(String name, double min, double max, Consumer<Integer> action, double value, double base) {
+        this.addEntry(new SliderWidget(min, max, 1, "option." + name, newValue -> action.accept(newValue.intValue()), value, true, base));
     }
 
-    public void addDouble(String name, double min, double max, double step, Consumer<Double> action, double value, boolean tooltip) {
-        this.addEntry(new SliderWidget(min, max, step, "option." + name, action, value, false, tooltip));
+    public void addDouble(String name, double min, double max, double step, Consumer<Double> action, double value, double base) {
+        this.addEntry(new SliderWidget(min, max, step, "option." + name, action, value, false, base));
     }
 
     public void addEntry(AbstractWidget widget) {

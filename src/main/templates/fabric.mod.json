@@ -5,10 +5,12 @@
   "version": "${mod_version}",
   "description": "Terrain shaping brought to new heights, grander and more varied than ever before. Welcome to Tectonic v3.",
   "authors": [
-    "Apollo (Developer)",
-    "HB Stratos (Contributor)",
-    "DawnKiro (Contributor)",
-    "Uni (Contributor)"
+    "Apollo"
+  ],
+  "contributors": [
+    "HB Stratos",
+    "DawnKiro",
+    "Uni"
   ],
   "contact": {
     "homepage": "https://modrinth.com/project/tectonic",

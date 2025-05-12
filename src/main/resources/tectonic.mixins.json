@@ -7,10 +7,12 @@
   },
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "client.WorldCreationUiStateMixin",
     "client.WorldOpenFlowsMixin"
   ],
   "mixins": [
     "BiomeMixin",
+    "IOWorkerMixin",
     "NoisesMixin",
     "StructurePieceMixin",
     "TemperatureModifierMixin"

@@ -7,14 +7,9 @@
       "coordinate": "tectonic:overworld/noise/full_continents",
       "points": [
         {
-          "location": -0.25,
-          "derivative": 0,
-          "value": 0.4
-        },
-        {
           "location": -0.2,
           "derivative": 0,
-          "value": 0
+          "value": 0.4
         },
         {
           "location": -0.15,

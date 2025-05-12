@@ -55,12 +55,16 @@ public class ConfigState {
 
 
     public static class General {
+        public static final boolean MOD_ENABLED = true;
+        public static final boolean HIDE_BETA_WARNING = false;
+        public static final int SNOW_START_OFFSET = 128;
+
+        public static final General DEFAULT = new General(MOD_ENABLED, HIDE_BETA_WARNING, SNOW_START_OFFSET);
         public static final Codec<General> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.BOOL.fieldOf("mod_enabled").forGetter(general -> general.modEnabled),
-            Codec.BOOL.fieldOf("hide_beta_warning").orElse(false).forGetter(general -> general.hideBetaWarning),
-            Codec.INT.fieldOf("snow_start_offset").orElse(128).forGetter(general -> general.snowStartOffset)
+            Codec.BOOL.fieldOf("hide_beta_warning").orElse(HIDE_BETA_WARNING).forGetter(general -> general.hideBetaWarning),
+            Codec.INT.fieldOf("snow_start_offset").orElse(SNOW_START_OFFSET).forGetter(general -> general.snowStartOffset)
         ).apply(instance, General::new));
-        public static final General DEFAULT = new General(true, false, 128);
 
         public boolean modEnabled;
         public boolean hideBetaWarning;
@@ -74,12 +78,16 @@ public class ConfigState {
     }
 
     public static class GlobalTerrain {
+        public static final double VERTICAL_SCALE = 1.125;
+        public static final boolean INCREASED_HEIGHT = false;
+        public static final boolean LAVA_RIVERS = true;
+
+        public static final GlobalTerrain DEFAULT = new GlobalTerrain(VERTICAL_SCALE, INCREASED_HEIGHT, LAVA_RIVERS);
         public static final Codec<GlobalTerrain> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.DOUBLE.fieldOf("vertical_scale").orElse(1.125).forGetter(globalTerrain -> globalTerrain.verticalScale),
-            Codec.BOOL.fieldOf("increased_height").orElse(false).forGetter(globalTerrain -> globalTerrain.increasedHeight),
-            Codec.BOOL.fieldOf("lava_rivers").orElse(true).forGetter(globalTerrain -> globalTerrain.lavaRivers)
+            Codec.DOUBLE.fieldOf("vertical_scale").orElse(VERTICAL_SCALE).forGetter(globalTerrain -> globalTerrain.verticalScale),
+            Codec.BOOL.fieldOf("increased_height").orElse(INCREASED_HEIGHT).forGetter(globalTerrain -> globalTerrain.increasedHeight),
+            Codec.BOOL.fieldOf("lava_rivers").orElse(LAVA_RIVERS).forGetter(globalTerrain -> globalTerrain.lavaRivers)
         ).apply(instance, GlobalTerrain::new));
-        public static final GlobalTerrain DEFAULT = new GlobalTerrain(1.125, false, true);
 
         public double verticalScale;
         public boolean increasedHeight;
@@ -93,35 +101,47 @@ public class ConfigState {
     }
 
     public static class Continents {
+        public static final double OCEAN_OFFSET = -0.8;
+        public static final double CONTINENTS_SCALE = 0.13;
+        public static final double EROSION_SCALE = 0.25;
+        public static final boolean UNDERGROUND_RIVERS = true;
+        public static final boolean RIVER_LANTERNS = true;
+        public static final double FLAT_TERRAIN_SKEW = 0.1;
+
+        public static final Continents DEFAULT = new Continents(OCEAN_OFFSET, CONTINENTS_SCALE, EROSION_SCALE, UNDERGROUND_RIVERS, RIVER_LANTERNS, FLAT_TERRAIN_SKEW);
         public static final Codec<Continents> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.DOUBLE.fieldOf("ocean_offset").orElse(-0.8).forGetter(continents -> continents.oceanOffset),
-            Codec.DOUBLE.fieldOf("continents_scale").orElse(0.13).forGetter(continents -> continents.continentsScale),
-            Codec.DOUBLE.fieldOf("erosion_scale").orElse(0.25).forGetter(continents -> continents.erosionScale),
-            Codec.BOOL.fieldOf("underground_rivers").orElse(true).forGetter(continents -> continents.undergroundRivers),
-            Codec.DOUBLE.fieldOf("flat_terrain_skew").orElse(0.1).forGetter(continents -> continents.flatTerrainSkew)
+            Codec.DOUBLE.fieldOf("ocean_offset").orElse(OCEAN_OFFSET).forGetter(continents -> continents.oceanOffset),
+            Codec.DOUBLE.fieldOf("continents_scale").orElse(CONTINENTS_SCALE).forGetter(continents -> continents.continentsScale),
+            Codec.DOUBLE.fieldOf("erosion_scale").orElse(EROSION_SCALE).forGetter(continents -> continents.erosionScale),
+            Codec.BOOL.fieldOf("underground_rivers").orElse(UNDERGROUND_RIVERS).forGetter(continents -> continents.undergroundRivers),
+            Codec.BOOL.fieldOf("river_lanterns").orElse(RIVER_LANTERNS).forGetter(continents -> continents.riverLanterns),
+            Codec.DOUBLE.fieldOf("flat_terrain_skew").orElse(FLAT_TERRAIN_SKEW).forGetter(continents -> continents.flatTerrainSkew)
         ).apply(instance, Continents::new));
-        public static final Continents DEFAULT = new Continents(-0.8, 0.13, 0.25, true, 0.1);
 
         public double oceanOffset;
         public double continentsScale;
         public double erosionScale;
         public boolean undergroundRivers;
+        public boolean riverLanterns;
         public double flatTerrainSkew;
 
-        public Continents(double oceanOffset, double continentsScale, double erosionScale, boolean undergroundRivers, double flatTerrainSkew) {
+        public Continents(double oceanOffset, double continentsScale, double erosionScale, boolean undergroundRivers, boolean riverLanterns, double flatTerrainSkew) {
             this.oceanOffset = oceanOffset;
             this.continentsScale = continentsScale;
             this.erosionScale = erosionScale;
             this.undergroundRivers = undergroundRivers;
+            this.riverLanterns = riverLanterns;
             this.flatTerrainSkew = flatTerrainSkew;
         }
     }
 
     public static class Islands {
+        public static final boolean ENABLED = true;
+
+        public static final Islands DEFAULT = new Islands(ENABLED);
         public static final Codec<Islands> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.BOOL.fieldOf("enabled").orElse(true).forGetter(islands -> islands.enabled)
+            Codec.BOOL.fieldOf("enabled").orElse(ENABLED).forGetter(islands -> islands.enabled)
         ).apply(instance, Islands::new));
-        public static final Islands DEFAULT = new Islands(true);
 
         public boolean enabled;
 
@@ -131,23 +151,25 @@ public class ConfigState {
     }
 
     public static class Oceans {
-        public static final Codec<Oceans> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.BOOL.fieldOf("use_vanilla_shaping").orElse(false).forGetter(oceans -> oceans.useVanillaShaping),
-            Codec.DOUBLE.fieldOf("ocean_depth").orElse(-0.22).forGetter(oceans -> oceans.oceanDepth),
-            Codec.DOUBLE.fieldOf("deep_ocean_depth").orElse(-0.45).forGetter(oceans -> oceans.deepOceanDepth),
-            Codec.INT.fieldOf("monument_offset").orElse(-30).forGetter(oceans -> oceans.monumentOffset),
-            Codec.BOOL.fieldOf("remove_frozen_ocean_ice").orElse(false).forGetter(oceans -> oceans.removeFrozenOceanIce)
-        ).apply(instance, Oceans::new));
-        public static final Oceans DEFAULT = new Oceans(false, -0.22, -0.45, -30, false);
+        public static final double OCEAN_DEPTH = -0.22;
+        public static final double DEEP_OCEAN_DEPTH = -0.45;
+        public static final int MONUMENT_OFFSET = -30;
+        public static final boolean REMOVE_FROZEN_OCEAN_ICE = false;
 
-        public boolean useVanillaShaping;
+        public static final Oceans DEFAULT = new Oceans(OCEAN_DEPTH, DEEP_OCEAN_DEPTH, MONUMENT_OFFSET, REMOVE_FROZEN_OCEAN_ICE);
+        public static final Codec<Oceans> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.DOUBLE.fieldOf("ocean_depth").orElse(OCEAN_DEPTH).forGetter(oceans -> oceans.oceanDepth),
+            Codec.DOUBLE.fieldOf("deep_ocean_depth").orElse(DEEP_OCEAN_DEPTH).forGetter(oceans -> oceans.deepOceanDepth),
+            Codec.INT.fieldOf("monument_offset").orElse(MONUMENT_OFFSET).forGetter(oceans -> oceans.monumentOffset),
+            Codec.BOOL.fieldOf("remove_frozen_ocean_ice").orElse(REMOVE_FROZEN_OCEAN_ICE).forGetter(oceans -> oceans.removeFrozenOceanIce)
+        ).apply(instance, Oceans::new));
+
         public double oceanDepth;
         public double deepOceanDepth;
         public int monumentOffset;
         public boolean removeFrozenOceanIce;
 
-        public Oceans(boolean useVanillaShaping, double oceanDepth, double deepOceanDepth, int monumentOffset, boolean removeFrozenOceanIce) {
-            this.useVanillaShaping = useVanillaShaping;
+        public Oceans(double oceanDepth, double deepOceanDepth, int monumentOffset, boolean removeFrozenOceanIce) {
             this.oceanDepth = oceanDepth;
             this.deepOceanDepth = deepOceanDepth;
             this.monumentOffset = monumentOffset;
@@ -156,13 +178,18 @@ public class ConfigState {
     }
 
     public static class Biomes {
+        public static final double TEMPERATURE_MULTIPLIER = 1.0;
+        public static final double TEMPERATURE_SCALE = 0.25;
+        public static final double VEGETATION_MULTIPLIER = 1.0;
+        public static final double VEGETATION_SCALE = 0.25;
+
+        public static final Biomes DEFAULT = new Biomes(TEMPERATURE_MULTIPLIER, TEMPERATURE_SCALE, VEGETATION_MULTIPLIER, VEGETATION_SCALE);
         public static final Codec<Biomes> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.DOUBLE.fieldOf("temperature_multiplier").orElse(1.0).forGetter(biomes -> biomes.temperatureMultiplier),
-            Codec.DOUBLE.fieldOf("temperature_scale").orElse(0.25).forGetter(biomes -> biomes.temperatureScale),
-            Codec.DOUBLE.fieldOf("vegetation_multiplier").orElse(1.0).forGetter(biomes -> biomes.vegetationMultiplier),
-            Codec.DOUBLE.fieldOf("vegetation_scale").orElse(0.25).forGetter(biomes -> biomes.vegetationScale)
+            Codec.DOUBLE.fieldOf("temperature_multiplier").orElse(TEMPERATURE_MULTIPLIER).forGetter(biomes -> biomes.temperatureMultiplier),
+            Codec.DOUBLE.fieldOf("temperature_scale").orElse(TEMPERATURE_SCALE).forGetter(biomes -> biomes.temperatureScale),
+            Codec.DOUBLE.fieldOf("vegetation_multiplier").orElse(VEGETATION_MULTIPLIER).forGetter(biomes -> biomes.vegetationMultiplier),
+            Codec.DOUBLE.fieldOf("vegetation_scale").orElse(VEGETATION_SCALE).forGetter(biomes -> biomes.vegetationScale)
         ).apply(instance, Biomes::new));
-        public static final Biomes DEFAULT = new Biomes(1, 0.25, 1, 0.25);
 
         public double temperatureMultiplier;
         public double temperatureScale;
