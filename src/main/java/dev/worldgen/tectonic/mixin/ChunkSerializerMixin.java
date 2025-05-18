@@ -1,5 +1,5 @@
 //? if 1.21.1 {
-package dev.worldgen.tectonic.mixin;
+/*package dev.worldgen.tectonic.mixin;
 
 import dev.worldgen.tectonic.Tectonic;
 import net.minecraft.nbt.CompoundTag;
@@ -64,4 +64,4 @@ public class ChunkSerializerMixin {
         cir.setReturnValue(data);
     }
 }
-//?}
+*///?}

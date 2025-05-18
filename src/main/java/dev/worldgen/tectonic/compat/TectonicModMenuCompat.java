@@ -1,5 +1,5 @@
 //? if fabric {
-package dev.worldgen.tectonic.compat;
+/*package dev.worldgen.tectonic.compat;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
@@ -15,4 +15,4 @@ public class TectonicModMenuCompat implements ModMenuApi {
         return ConfigScreen::new;
     }
 }
-//?}
+*///?}

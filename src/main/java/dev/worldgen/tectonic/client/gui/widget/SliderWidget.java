@@ -1,4 +1,5 @@
-package dev.worldgen.tectonic.client.gui.widget;
+//? if >1.20.1 {
+/*package dev.worldgen.tectonic.client.gui.widget;
 
 import net.minecraft.client.InputType;
 import net.minecraft.client.Minecraft;
@@ -17,8 +18,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 //? if >1.21.1 {
-/*import net.minecraft.util.ARGB;
-*///?}
+/^import net.minecraft.util.ARGB;
+^///?}
 
 import java.util.function.Consumer;
 
@@ -88,9 +89,9 @@ public class SliderWidget extends AbstractWidget {
     public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         Minecraft minecraft = Minecraft.getInstance();
         //? if >1.21.1 {
-        /*guiGraphics.blitSprite(RenderType::guiTextured, this.getSprite(), this.getX(), this.getY(), this.getWidth(), this.getHeight(), ARGB.white(this.alpha));
+        /^guiGraphics.blitSprite(RenderType::guiTextured, this.getSprite(), this.getX(), this.getY(), this.getWidth(), this.getHeight(), ARGB.white(this.alpha));
         guiGraphics.blitSprite(RenderType::guiTextured, this.getHandleSprite(), this.getX() + (int)(this.delta * (double)(this.width - 8)), this.getY(), 8, this.getHeight(), ARGB.white(this.alpha));
-        *///?} else {
+        ^///?} else {
         guiGraphics.blitSprite(this.getSprite(), this.getX(), this.getY(), this.getWidth(), this.getHeight());
         guiGraphics.blitSprite(this.getHandleSprite(), this.getX() + (int)(this.delta * (double)(this.width - 8)), this.getY(), 8, this.getHeight());
         //?}
@@ -178,3 +179,4 @@ public class SliderWidget extends AbstractWidget {
         }
     }
 }
+*///?}
