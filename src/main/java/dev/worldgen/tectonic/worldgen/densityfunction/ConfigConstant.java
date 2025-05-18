@@ -5,7 +5,6 @@ import com.mojang.serialization.MapCodec;
 import dev.worldgen.tectonic.config.ConfigHandler;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.DensityFunction;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
@@ -19,17 +18,16 @@ public record ConfigConstant(double value) implements DensityFunction {
     }
 
     @Override
-    public double compute(@NotNull FunctionContext context) {
+    public double compute(FunctionContext context) {
         return value;
     }
 
     @Override
-    public void fillArray(double @NotNull [] doubles, ContextProvider contextProvider) {
+    public void fillArray(double[] doubles, ContextProvider contextProvider) {
         Arrays.fill(doubles, value);
     }
 
     @Override
-    @NotNull
     public DensityFunction mapAll(Visitor visitor) {
         return visitor.apply(this);
     }
@@ -45,7 +43,6 @@ public record ConfigConstant(double value) implements DensityFunction {
     }
 
     @Override
-    @NotNull
     public KeyDispatchDataCodec<? extends DensityFunction> codec() {
         return CODEC_HOLDER;
     }

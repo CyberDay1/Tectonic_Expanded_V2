@@ -1,11 +1,10 @@
-//? if >1.20.1 {
-/*package dev.worldgen.tectonic.client.gui;
+//? if 1.20.1 {
+package dev.worldgen.tectonic.client.old.gui;
 
 import dev.worldgen.tectonic.config.ConfigHandler;
 import dev.worldgen.tectonic.config.state.ConfigState;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
-import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -20,7 +19,6 @@ public class ConfigScreen extends Screen {
     private final Screen parent;
 
     private ConfigList list;
-    final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
 
     public ConfigScreen(Screen parent) {
         super(text("title"));
@@ -31,9 +29,7 @@ public class ConfigScreen extends Screen {
     public void init() {
         ConfigState state = ConfigHandler.getState();
 
-        layout.addTitleHeader(title, font);
-
-        list = layout.addToContents(new ConfigList(minecraft, width, this));
+        list = new ConfigList(minecraft, this);
 
         list.addCategory("general", font);
         list.addBoolean("mod_enabled", bool -> state.general.modEnabled = bool, state.general.modEnabled, MOD_ENABLED);
@@ -68,20 +64,24 @@ public class ConfigScreen extends Screen {
         list.addDouble("vegetation_multiplier", 0.1, 5, 0.1, value -> state.biomes.vegetationMultiplier = value, state.biomes.vegetationMultiplier, VEGETATION_MULTIPLIER);
         list.addDouble("vegetation_scale", 0.01, 1, 0.01, value -> state.biomes.vegetationScale = value, state.biomes.vegetationScale, VEGETATION_SCALE);
 
-
-        LinearLayout footer = layout.addToFooter(LinearLayout.horizontal().spacing(8));
-
-        footer.addChild(Button.builder(CommonComponents.GUI_DONE, button -> onDone()).build());
-
-        layout.visitWidgets(this::addRenderableWidget);
-        this.repositionElements();
+        this.addWidget(list);
+        this.addRenderableWidget(Button.builder(
+            CommonComponents.GUI_DONE,
+            button -> this.onDone()
+        ).pos(width / 2 - 100, height - 28).size(200, 20).build());
     }
 
-    protected void repositionElements() {
-        this.layout.arrangeElements();
-        if (this.list != null) {
-            this.list.updateSize(this.width, this.layout);
-        }
+    @Override
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+        super.render(guiGraphics, mouseX, mouseY, delta);
+        list.render(guiGraphics, mouseX, mouseY, delta);
+
+        guiGraphics.drawCenteredString(this.font, title, width / 2, 12, 0xffffff);
+    }
+
+    @Override
+    public void renderBackground(GuiGraphics context) {
+        this.renderDirtBackground(context);
     }
 
     private void onDone() {
@@ -101,4 +101,4 @@ public class ConfigScreen extends Screen {
         return text("option." + name);
     }
 }
-*///?}
+//?}

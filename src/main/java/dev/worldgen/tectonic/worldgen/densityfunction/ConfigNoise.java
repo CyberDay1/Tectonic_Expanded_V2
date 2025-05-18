@@ -6,7 +6,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.worldgen.tectonic.config.ConfigHandler;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.DensityFunction;
-import org.jetbrains.annotations.NotNull;
 
 public record ConfigNoise(NoiseHolder noise, DensityFunction shiftX, DensityFunction shiftZ, double scale) implements DensityFunction {
     public static MapCodec<ConfigNoise> DATA_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -23,19 +22,18 @@ public record ConfigNoise(NoiseHolder noise, DensityFunction shiftX, DensityFunc
     }
 
     @Override
-    public double compute(@NotNull FunctionContext context) {
+    public double compute(FunctionContext context) {
         double x = context.blockX() * scale + shiftX.compute(context);
         double z = context.blockZ() * scale + shiftZ.compute(context);
         return noise.getValue(x, 0, z);
     }
 
     @Override
-    public void fillArray(double @NotNull [] doubles, ContextProvider contextProvider) {
+    public void fillArray(double[] doubles, ContextProvider contextProvider) {
         contextProvider.fillAllDirectly(doubles, this);
     }
 
     @Override
-    @NotNull
     public DensityFunction mapAll(Visitor visitor) {
         return visitor.apply(new ConfigNoise(visitor.visitNoise(noise), shiftX.mapAll(visitor), shiftZ.mapAll(visitor), scale));
     }
@@ -51,7 +49,6 @@ public record ConfigNoise(NoiseHolder noise, DensityFunction shiftX, DensityFunc
     }
 
     @Override
-    @NotNull
     public KeyDispatchDataCodec<? extends DensityFunction> codec() {
         return CODEC_HOLDER;
     }

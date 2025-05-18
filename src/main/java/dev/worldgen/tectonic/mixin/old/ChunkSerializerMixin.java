@@ -1,5 +1,5 @@
-//? if 1.21.1 {
-/*package dev.worldgen.tectonic.mixin;
+//? if 1.20.1 {
+package dev.worldgen.tectonic.mixin.old;
 
 import dev.worldgen.tectonic.Tectonic;
 import net.minecraft.nbt.CompoundTag;
@@ -11,10 +11,9 @@ import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.chunk.ProtoChunk;
-import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.level.chunk.storage.ChunkSerializer;
-import net.minecraft.world.level.chunk.storage.RegionStorageInfo;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,7 +31,7 @@ public class ChunkSerializerMixin {
     );
 
     @Inject(method = "read", at = @At("HEAD"))
-    private static void tectonic$read(ServerLevel level, PoiManager poiManager, RegionStorageInfo regionStorageInfo, ChunkPos chunkPos, CompoundTag nbt, CallbackInfoReturnable<ProtoChunk> cir) {
+    private static void tectonic$read(ServerLevel level, PoiManager poiManager, ChunkPos chunkPos, CompoundTag nbt, CallbackInfoReturnable<ProtoChunk> cir) {
         // Safe cast unless some mod does weird bs
         if (!level.dimension().equals(Level.OVERWORLD)) return;
 
@@ -64,4 +63,4 @@ public class ChunkSerializerMixin {
         cir.setReturnValue(data);
     }
 }
-*///?}
+//?}

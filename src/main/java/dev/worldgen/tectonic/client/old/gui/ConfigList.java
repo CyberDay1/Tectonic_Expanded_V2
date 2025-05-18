@@ -1,13 +1,13 @@
-//? if >1.20.1 {
-/*package dev.worldgen.tectonic.client.gui;
+//? if 1.20.1 {
+package dev.worldgen.tectonic.client.old.gui;
 
-import dev.worldgen.tectonic.client.gui.widget.SliderWidget;
+import dev.worldgen.tectonic.client.old.gui.widget.FixedStringWidget;
+import dev.worldgen.tectonic.client.old.gui.widget.SliderWidget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.components.events.GuiEventListener;
-import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -16,15 +16,15 @@ import net.minecraft.network.chat.MutableComponent;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static dev.worldgen.tectonic.client.gui.ConfigScreen.option;
+import static dev.worldgen.tectonic.client.old.gui.ConfigScreen.option;
 
 public class ConfigList extends ContainerObjectSelectionList<ConfigList.Entry> {
-    public ConfigList(Minecraft minecraft, int width, ConfigScreen parent) {
-        super(minecraft, width, parent.layout.getContentHeight(), parent.layout.getHeaderHeight(), 25);
+    public ConfigList(Minecraft minecraft, ConfigScreen parent) {
+        super(minecraft, parent.width, parent.height, 32, parent.height - 32, 25);
     }
 
     public void addCategory(String name, Font font) {
-        this.addEntry(new StringWidget(ConfigScreen.text("category."+name), font));
+        this.addEntry(new FixedStringWidget(ConfigScreen.text("category."+name), font));
     }
 
     public void addBoolean(String name, Consumer<Boolean> setter, boolean value, boolean base) {
@@ -38,7 +38,7 @@ public class ConfigList extends ContainerObjectSelectionList<ConfigList.Entry> {
 
         button.withTooltip(__ -> Tooltip.create(text));
 
-        this.addEntry(button.create(option(name), (__, bool) -> setter.accept(bool)));
+        this.addEntry(button.create(0, 0, 150, 20, option(name), (__, bool) -> setter.accept(bool)));
     }
 
     public void addInteger(String name, double min, double max, Consumer<Integer> action, double value, double base) {
@@ -52,18 +52,17 @@ public class ConfigList extends ContainerObjectSelectionList<ConfigList.Entry> {
     public void addEntry(AbstractWidget widget) {
         widget.setX(width / 2 - 155);
         widget.setY(0);
-        widget.setHeight(20);
         widget.setWidth(310);
         this.addEntry(new Entry(widget));
     }
 
-    public int getRowWidth() {
-        return 310;
+    @Override
+    protected int getScrollbarPosition() {
+        return this.width / 2 + 164;
     }
 
-    public void updateSize(int width, HeaderAndFooterLayout layout) {
-        super.updateSize(width, layout);
-        this.children().forEach(entry -> entry.widget.setX(width / 2 - 155));
+    public int getRowWidth() {
+        return 310;
     }
 
     static class Entry extends ContainerObjectSelectionList.Entry<Entry> {
@@ -87,4 +86,4 @@ public class ConfigList extends ContainerObjectSelectionList<ConfigList.Entry> {
         }
     }
 }
-*///?}
+//?}

@@ -1,4 +1,5 @@
-package dev.worldgen.tectonic.mixin.client;
+//? if >1.20.1 {
+/*package dev.worldgen.tectonic.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.serialization.Dynamic;
@@ -76,3 +77,4 @@ public abstract class WorldOpenFlowsMixin {
         }
     }
 }
+*///?}

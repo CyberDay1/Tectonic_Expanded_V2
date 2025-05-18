@@ -2,6 +2,7 @@ package dev.worldgen.tectonic.config.state;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.worldgen.tectonic.Tectonic;
 
 public class ConfigState {
     public static final Codec<ConfigState> BASE_CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -12,7 +13,7 @@ public class ConfigState {
         Oceans.CODEC.fieldOf("oceans").orElse(Oceans.DEFAULT).forGetter(state -> state.oceans),
         Biomes.CODEC.fieldOf("biomes").orElse(Biomes.DEFAULT).forGetter(state -> state.biomes)
     ).apply(instance, ConfigState::new));
-    public static final Codec<ConfigState> CODEC = Codec.withAlternative(BASE_CODEC, V2ConfigState.CODEC, V2ConfigState::upgrade);
+    public static final Codec<ConfigState> CODEC = Tectonic.withAlternative(BASE_CODEC, V2ConfigState.CODEC, V2ConfigState::upgrade);
 
     public General general;
     public GlobalTerrain globalTerrain;

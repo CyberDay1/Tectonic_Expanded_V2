@@ -1,6 +1,7 @@
-//? if >1.20.1 {
-/*package dev.worldgen.tectonic.client.gui.widget;
+//? if 1.20.1 {
+package dev.worldgen.tectonic.client.old.gui.widget;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.InputType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -9,7 +10,6 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.navigation.CommonInputs;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -17,17 +17,10 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-//? if >1.21.1 {
-/^import net.minecraft.util.ARGB;
-^///?}
-
 import java.util.function.Consumer;
 
 public class SliderWidget extends AbstractWidget {
-    private static final ResourceLocation SLIDER_SPRITE = ResourceLocation.withDefaultNamespace("widget/slider");
-    private static final ResourceLocation HIGHLIGHTED_SPRITE = ResourceLocation.withDefaultNamespace("widget/slider_highlighted");
-    private static final ResourceLocation SLIDER_HANDLE_SPRITE = ResourceLocation.withDefaultNamespace("widget/slider_handle");
-    private static final ResourceLocation SLIDER_HANDLE_HIGHLIGHTED_SPRITE = ResourceLocation.withDefaultNamespace("widget/slider_handle_highlighted");
+	private static final ResourceLocation SLIDER_LOCATION = new ResourceLocation("textures/gui/slider.png");
     private final double min;
     private final double max;
     private final double step;
@@ -39,7 +32,7 @@ public class SliderWidget extends AbstractWidget {
     protected boolean displayInt;
 
     public SliderWidget(double min, double max, double step, String suffix, Consumer<Double> action, double value, boolean displayInt, double base) {
-        super(0, 0, 0, 0, CommonComponents.EMPTY);
+        super(0, 0, 310, 20, CommonComponents.EMPTY);
         this.min = min;
         this.max = max;
         this.step = 1 / step;
@@ -62,13 +55,15 @@ public class SliderWidget extends AbstractWidget {
         this.updateMessage();
     }
 
-    private ResourceLocation getSprite() {
-        return this.isFocused() && !this.canChangeValue ? HIGHLIGHTED_SPRITE : SLIDER_SPRITE;
-    }
+	private int getTextureY() {
+		int i = this.isFocused() && !this.canChangeValue ? 1 : 0;
+		return i * 20;
+	}
 
-    private ResourceLocation getHandleSprite() {
-        return !this.isHovered && !this.canChangeValue ? SLIDER_HANDLE_SPRITE : SLIDER_HANDLE_HIGHLIGHTED_SPRITE;
-    }
+	private int getHandleTextureY() {
+		int i = !this.isHovered && !this.canChangeValue ? 2 : 3;
+		return i * 20;
+	}
 
     protected MutableComponent createNarrationMessage() {
         return Component.translatable("gui.narrate.slider", this.getMessage());
@@ -87,16 +82,16 @@ public class SliderWidget extends AbstractWidget {
     }
 
     public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        Minecraft minecraft = Minecraft.getInstance();
-        //? if >1.21.1 {
-        /^guiGraphics.blitSprite(RenderType::guiTextured, this.getSprite(), this.getX(), this.getY(), this.getWidth(), this.getHeight(), ARGB.white(this.alpha));
-        guiGraphics.blitSprite(RenderType::guiTextured, this.getHandleSprite(), this.getX() + (int)(this.delta * (double)(this.width - 8)), this.getY(), 8, this.getHeight(), ARGB.white(this.alpha));
-        ^///?} else {
-        guiGraphics.blitSprite(this.getSprite(), this.getX(), this.getY(), this.getWidth(), this.getHeight());
-        guiGraphics.blitSprite(this.getHandleSprite(), this.getX() + (int)(this.delta * (double)(this.width - 8)), this.getY(), 8, this.getHeight());
-        //?}
-        int k = this.active ? 16777215 : 10526880;
-        this.renderScrollingString(guiGraphics, minecraft.font, 2, k | Mth.ceil(this.alpha * 255.0F) << 24);
+		Minecraft minecraft = Minecraft.getInstance();
+		guiGraphics.setColor(1.0F, 1.0F, 1.0F, this.alpha);
+		RenderSystem.enableBlend();
+		RenderSystem.defaultBlendFunc();
+		RenderSystem.enableDepthTest();
+		guiGraphics.blitNineSliced(SLIDER_LOCATION, this.getX(), this.getY(), this.getWidth(), this.getHeight(), 20, 4, 200, 20, 0, this.getTextureY());
+		guiGraphics.blitNineSliced(SLIDER_LOCATION, this.getX() + (int)(this.delta * (double)(this.width - 8)), this.getY(), 8, 20, 20, 4, 200, 20, 0, this.getHandleTextureY());
+		guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+		int k = this.active ? 16777215 : 10526880;
+		this.renderScrollingString(guiGraphics, minecraft.font, 2, k | Mth.ceil(this.alpha * 255.0F) << 24);
     }
 
     public void onClick(double mouseX, double mouseY) {
@@ -179,4 +174,4 @@ public class SliderWidget extends AbstractWidget {
         }
     }
 }
-*///?}
+//?}

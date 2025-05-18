@@ -98,6 +98,8 @@ modstitch {
 
         configs.register("tectonic")
 
+        if (minecraft == "1.20.1" && isFabric) configs.register("tectonic_1.20.1_fabric")
+        if (minecraft == "1.20.1") configs.register("tectonic_1.20.1")
         if (minecraft == "1.21.1") configs.register("tectonic_1.21.1")
         if (minecraft == "1.21.5") configs.register("tectonic_1.21.5")
 
@@ -167,6 +169,7 @@ publishMods {
         accessToken.set(providers.environmentVariable("TOKEN_MR"))
         projectId.set("lWDHr9jE")
 
+        if (minecraft == "1.20.1") minecraftVersions.add("1.20.1")
         if (minecraft == "1.21.1") minecraftVersions.add("1.21.1")
         if (minecraft == "1.21.5") minecraftVersions.add("1.21.5")
 
@@ -180,6 +183,7 @@ publishMods {
         accessToken.set(providers.environmentVariable("TOKEN_CF"))
         projectId.set("686836")
 
+        if (minecraft == "1.20.1") minecraftVersions.add("1.20.1")
         if (minecraft == "1.21.1") minecraftVersions.add("1.21.1")
         if (minecraft == "1.21.5") minecraftVersions.add("1.21.5")
 
