@@ -1,5 +1,5 @@
-//? if fabric && >1.20.1 {
-/*package dev.worldgen.tectonic.loaders.fabric;
+//? if fabric {
+package dev.worldgen.tectonic.loaders.fabric;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -24,7 +24,7 @@ public record ConfigResourceCondition(String key) implements ResourceCondition {
     }
 
     @Override
-    public boolean test(@Nullable /^? >1.21.1 {^//^RegistryOps.RegistryInfoLookup^//^?} else {^/HolderLookup.Provider/^?}^/ registries) {
+    public boolean test(@Nullable /*? >1.21.1 {*//*RegistryOps.RegistryInfoLookup*//*?} else {*/HolderLookup.Provider/*?}*/ registries) {
         return switch (this.key) {
             case "disable_islands" -> ConfigHandler.getState().islands.enabled;
             case "increased_height" -> ConfigHandler.getState().globalTerrain.increasedHeight;
@@ -34,4 +34,4 @@ public record ConfigResourceCondition(String key) implements ResourceCondition {
         };
     }
 }
-*///?}
+//?}

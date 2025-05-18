@@ -1,8 +1,4 @@
 {
-  "predicate": {
-    "type": "tectonic:config",
-    "key": "river_lanterns"
-  },
   "fabric:load_conditions": [
     {
       "condition": "tectonic:config",

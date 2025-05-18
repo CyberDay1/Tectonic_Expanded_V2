@@ -1,5 +1,5 @@
 //? if fabric {
-/*package dev.worldgen.tectonic.loaders.fabric;
+package dev.worldgen.tectonic.loaders.fabric;
 
 import dev.worldgen.lithostitched.registry.LithostitchedBuiltInRegistries;
 import dev.worldgen.tectonic.Tectonic;
@@ -89,4 +89,4 @@ public class TectonicFabric implements ModInitializer {
     }
     //?}
 }
-*///?}
+//?}
