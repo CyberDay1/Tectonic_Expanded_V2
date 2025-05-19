@@ -1,5 +1,5 @@
-//? if 1.20.1 {
-package dev.worldgen.tectonic.old;
+//? if 1.20.1 && fabric {
+/*package dev.worldgen.tectonic.old;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -14,7 +14,7 @@ public record TectonicModifierPredicate(String key) implements ModifierPredicate
     @Override
     public boolean test() {
         return switch (this.key) {
-            case "disable_islands" -> ConfigHandler.getState().islands.enabled;
+            case "disable_islands" -> !ConfigHandler.getState().islands.enabled;
             case "increased_height" -> ConfigHandler.getState().globalTerrain.increasedHeight;
             case "remove_frozen_ocean_ice" -> ConfigHandler.getState().oceans.removeFrozenOceanIce;
             case "river_lanterns" -> ConfigHandler.getState().continents.riverLanterns;
@@ -27,4 +27,4 @@ public record TectonicModifierPredicate(String key) implements ModifierPredicate
         return CODEC;
     }
 }
-//?}
+*///?}

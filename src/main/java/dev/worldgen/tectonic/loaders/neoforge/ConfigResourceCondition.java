@@ -16,7 +16,7 @@ public record ConfigResourceCondition(String key) implements ICondition {
     @Override
     public boolean test(@NotNull IContext context) {
         return switch (this.key) {
-            case "disable_islands" -> ConfigHandler.getState().islands.enabled;
+            case "disable_islands" -> !ConfigHandler.getState().islands.enabled;
             case "increased_height" -> ConfigHandler.getState().globalTerrain.increasedHeight;
             case "remove_frozen_ocean_ice" -> ConfigHandler.getState().oceans.removeFrozenOceanIce;
             case "river_lanterns" -> ConfigHandler.getState().continents.riverLanterns;
