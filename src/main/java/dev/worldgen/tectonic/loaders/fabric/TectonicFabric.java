@@ -1,11 +1,10 @@
 //? if fabric {
-/*package dev.worldgen.tectonic.loaders.fabric;
+package dev.worldgen.tectonic.loaders.fabric;
 
 import dev.worldgen.lithostitched.registry.LithostitchedBuiltInRegistries;
 import dev.worldgen.tectonic.Tectonic;
 import dev.worldgen.tectonic.config.ConfigHandler;
 //? if 1.20.1 {
-import dev.worldgen.tectonic.old.TectonicModifierPredicate;
 //?}
 import dev.worldgen.tectonic.worldgen.densityfunction.ConfigConstant;
 import dev.worldgen.tectonic.worldgen.densityfunction.ConfigNoise;
@@ -28,9 +27,9 @@ import java.util.List;
 import static dev.worldgen.tectonic.Tectonic.id;
 
 public class TectonicFabric implements ModInitializer {
-    /^*
+    /**
      * Used in 1.20 for {@code TectonicRepositorySource} bullshit.
-     ^/
+     */
     public static final List<Pack> PACKS = new ArrayList<>();
 
     @Override
@@ -38,14 +37,14 @@ public class TectonicFabric implements ModInitializer {
         Tectonic.init(FabricLoader.getInstance().getConfigDir());
 
         //? if >1.20.1 {
-        /^ResourceConditions.register(ConfigResourceCondition.TYPE);
-        ^///?}
+        /*ResourceConditions.register(ConfigResourceCondition.TYPE);
+        *///?}
 
         Registry.register(BuiltInRegistries.DENSITY_FUNCTION_TYPE, id("config_constant"), ConfigConstant.CODEC_HOLDER.codec());
         Registry.register(BuiltInRegistries.DENSITY_FUNCTION_TYPE, id("config_noise"), ConfigNoise.CODEC_HOLDER.codec());
 
         //? if >1.20.1 {
-        /^if (ConfigHandler.getState().general.modEnabled) {
+        /*if (ConfigHandler.getState().general.modEnabled) {
             ResourceManagerHelper.registerBuiltinResourcePack(
                 id("tectonic"),
                 FabricLoader.getInstance().getModContainer("tectonic").get(),
@@ -53,7 +52,7 @@ public class TectonicFabric implements ModInitializer {
                 ResourcePackActivationType.ALWAYS_ENABLED
             );
         }
-        ^///?} else {
+        *///?} else {
         Registry.register(LithostitchedBuiltInRegistries.MODIFIER_PREDICATE_TYPE, id("config"), TectonicModifierPredicate.CODEC);
         if (ConfigHandler.getState().general.modEnabled) {
             ResourceManagerHelper.registerBuiltinResourcePack(
@@ -89,4 +88,4 @@ public class TectonicFabric implements ModInitializer {
     }
     //?}
 }
-*///?}
+//?}

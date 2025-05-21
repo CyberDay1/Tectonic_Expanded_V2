@@ -98,7 +98,6 @@ modstitch {
 
         configs.register("tectonic")
 
-        if (minecraft == "1.20.1" && isFabric) configs.register("tectonic_1.20.1_fabric")
         if (minecraft == "1.20.1") configs.register("tectonic_1.20.1")
         if (minecraft == "1.21.1") configs.register("tectonic_1.21.1")
         if (minecraft == "1.21.5") configs.register("tectonic_1.21.5")
@@ -138,25 +137,7 @@ dependencies {
 
 publishMods {
     changelog = """
-        Additions
-        - **Added chunk blending.** You can now upgrade v2 worlds to v3 and have the game smooth out the transition between terrain.
-          - Please note that there are **1-2 block seams** at the chunk border. This is unfortunately unavoidable.
-        
-        Changes
-        - Updated the config screen. Every option now has an explanatory tooltip and its default value.
-        - Removed the Amplified and Large Biomes presets from the world type selector.
-          - Amplified has never worked with Tectonic, either completely ignoring it or having unintended behavior.
-          - Large Biomes is redundant due to the new `___ Scale` config options. This also drastically reduces the amount of duplicated code needed for the mod to fully function.
-        - The floor of underground rivers near entrances has been raised a few blocks.
-        - Smoothened the transition between rivers and swamps.
-        - Made stony shores steeper.
-        
-        Fixes
-        - Decreased how much land biomes seep into the oceans on coastlines.
-        - Fixed most instances of Deep Dark leaking into underground rivers.
-        - Fixed aquifer issues on the underground river floor. 
-        - Fixed plateau biome (e.g. meadow) generating next to rivers with Terralith installed.
-        - Fixed the Increased Height option not working with Terralith installed.
+        A changelog for sure!
     """.trimIndent()
     type = BETA
     modLoaders.add(loader)

@@ -7,6 +7,8 @@
   },
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "old.ChunkSerializerMixin"
+    "old.ChunkSerializerMixin",
+    "old.BuiltInPackSourceAccessor",
+    "old.PackRepositoryMixin"
   ]
 }

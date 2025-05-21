@@ -1,5 +1,5 @@
 //? if fabric && 1.20.1 {
-/*package dev.worldgen.tectonic.mixin.old.fabric;
+package dev.worldgen.tectonic.mixin.old;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.BuiltInPackSource;
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,4 +10,4 @@ public interface BuiltInPackSourceAccessor {
     @Accessor("packType")
     PackType getPackType();
 }
-*///?}
+//?}

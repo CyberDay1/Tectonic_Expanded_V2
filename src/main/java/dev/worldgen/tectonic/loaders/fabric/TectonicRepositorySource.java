@@ -1,5 +1,5 @@
 //? if fabric && 1.20.1 {
-/*package dev.worldgen.tectonic.loaders.fabric;
+package dev.worldgen.tectonic.loaders.fabric;
 
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.RepositorySource;
@@ -13,4 +13,4 @@ public class TectonicRepositorySource implements RepositorySource {
         TectonicFabric.PACKS.forEach(consumer);
     }
 }
-*///?}
+//?}
