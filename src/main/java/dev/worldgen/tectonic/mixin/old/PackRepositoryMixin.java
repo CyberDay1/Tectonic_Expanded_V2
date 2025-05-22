@@ -1,5 +1,5 @@
 //? if fabric && 1.20.1 {
-package dev.worldgen.tectonic.mixin.old;
+/*package dev.worldgen.tectonic.mixin.old;
 
 import dev.worldgen.tectonic.loaders.fabric.TectonicRepositorySource;
 import net.minecraft.server.packs.PackType;
@@ -48,4 +48,4 @@ public class PackRepositoryMixin {
         return new LinkedHashMap<>();
     }
 }
-//?}
+*///?}

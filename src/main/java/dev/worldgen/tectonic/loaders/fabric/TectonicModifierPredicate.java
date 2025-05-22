@@ -1,5 +1,5 @@
 //? if 1.20.1 {
-package dev.worldgen.tectonic.loaders.fabric;
+/*package dev.worldgen.tectonic.loaders.fabric;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -27,4 +27,4 @@ public record TectonicModifierPredicate(String key) implements ModifierPredicate
         return CODEC;
     }
 }
-//?}
+*///?}

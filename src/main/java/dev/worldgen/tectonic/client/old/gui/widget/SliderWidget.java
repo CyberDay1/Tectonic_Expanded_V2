@@ -1,5 +1,5 @@
 //? if 1.20.1 {
-package dev.worldgen.tectonic.client.old.gui.widget;
+/*package dev.worldgen.tectonic.client.old.gui.widget;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.InputType;
@@ -174,4 +174,4 @@ public class SliderWidget extends AbstractWidget {
         }
     }
 }
-//?}
+*///?}

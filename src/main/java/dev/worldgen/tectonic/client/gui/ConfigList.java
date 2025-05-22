@@ -1,5 +1,5 @@
 //? if >1.20.1 {
-/*package dev.worldgen.tectonic.client.gui;
+package dev.worldgen.tectonic.client.gui;
 
 import dev.worldgen.tectonic.client.gui.widget.SliderWidget;
 import net.minecraft.client.Minecraft;
@@ -87,4 +87,4 @@ public class ConfigList extends ContainerObjectSelectionList<ConfigList.Entry> {
         }
     }
 }
-*///?}
+//?}

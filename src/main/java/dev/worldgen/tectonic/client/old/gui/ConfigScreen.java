@@ -1,5 +1,5 @@
 //? if 1.20.1 {
-package dev.worldgen.tectonic.client.old.gui;
+/*package dev.worldgen.tectonic.client.old.gui;
 
 import dev.worldgen.tectonic.config.ConfigHandler;
 import dev.worldgen.tectonic.config.state.ConfigState;
@@ -101,4 +101,4 @@ public class ConfigScreen extends Screen {
         return text("option." + name);
     }
 }
-//?}
+*///?}

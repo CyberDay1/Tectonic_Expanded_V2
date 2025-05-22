@@ -16,7 +16,7 @@ public class IOWorkerMixin {
         cancellable = true
     )
     private void tectonic$needsBlending(CompoundTag nbt, CallbackInfoReturnable<Boolean> cir) {
-        if (/*? >1.21.1 {*//*nbt.getIntOr(Tectonic.BLENDING_KEY, 0)*//*?} else {*/nbt.getInt(Tectonic.BLENDING_KEY)/*?}*/ != Tectonic.BLENDING_VERSION) {
+        if (/*? >1.21.1 {*/nbt.getIntOr(Tectonic.BLENDING_KEY, 0)/*?} else {*//*nbt.getInt(Tectonic.BLENDING_KEY)*//*?}*/ != Tectonic.BLENDING_VERSION) {
             cir.setReturnValue(true);
         }
     }

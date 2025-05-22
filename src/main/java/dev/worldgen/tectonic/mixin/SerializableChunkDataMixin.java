@@ -1,5 +1,5 @@
 //? if >1.21.1 {
-/*package dev.worldgen.tectonic.mixin;
+package dev.worldgen.tectonic.mixin;
 
 import dev.worldgen.tectonic.Tectonic;
 import net.minecraft.core.RegistryAccess;
@@ -61,4 +61,4 @@ public abstract class SerializableChunkDataMixin {
         cir.setReturnValue(data);
     }
 }
-*///?}
+//?}

@@ -1,5 +1,5 @@
 //? if 1.20.1 {
-package dev.worldgen.tectonic.client.old.gui.widget;
+/*package dev.worldgen.tectonic.client.old.gui.widget;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -32,4 +32,4 @@ public class FixedStringWidget extends StringWidget {
         return Language.getInstance().getVisualOrder(FormattedText.composite(formattedText, CommonComponents.ELLIPSIS));
     }
 }
-//?}
+*///?}

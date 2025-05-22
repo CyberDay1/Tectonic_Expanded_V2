@@ -21,10 +21,10 @@ public abstract class NoisesMixin {
             String path = name.getPath();
             if (path.startsWith("parameter/")) {
                 //? if 1.20.1 {
-                return new ResourceLocation(path.substring(10));
-                //?} else {
-                /*return ResourceLocation.withDefaultNamespace(path.substring(10));
-                 *///?}
+                /*return new ResourceLocation(path.substring(10));
+                *///?} else {
+                return ResourceLocation.withDefaultNamespace(path.substring(10));
+                 //?}
             }
         }
         return name;

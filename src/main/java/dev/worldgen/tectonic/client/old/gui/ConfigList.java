@@ -1,5 +1,5 @@
 //? if 1.20.1 {
-package dev.worldgen.tectonic.client.old.gui;
+/*package dev.worldgen.tectonic.client.old.gui;
 
 import dev.worldgen.tectonic.client.old.gui.widget.FixedStringWidget;
 import dev.worldgen.tectonic.client.old.gui.widget.SliderWidget;
@@ -86,4 +86,4 @@ public class ConfigList extends ContainerObjectSelectionList<ConfigList.Entry> {
         }
     }
 }
-//?}
+*///?}

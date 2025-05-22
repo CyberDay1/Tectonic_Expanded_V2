@@ -37,14 +37,14 @@ public class TectonicFabric implements ModInitializer {
         Tectonic.init(FabricLoader.getInstance().getConfigDir());
 
         //? if >1.20.1 {
-        /*ResourceConditions.register(ConfigResourceCondition.TYPE);
-        *///?}
+        ResourceConditions.register(ConfigResourceCondition.TYPE);
+        //?}
 
         Registry.register(BuiltInRegistries.DENSITY_FUNCTION_TYPE, id("config_constant"), ConfigConstant.CODEC_HOLDER.codec());
         Registry.register(BuiltInRegistries.DENSITY_FUNCTION_TYPE, id("config_noise"), ConfigNoise.CODEC_HOLDER.codec());
 
         //? if >1.20.1 {
-        /*if (ConfigHandler.getState().general.modEnabled) {
+        if (ConfigHandler.getState().general.modEnabled) {
             ResourceManagerHelper.registerBuiltinResourcePack(
                 id("tectonic"),
                 FabricLoader.getInstance().getModContainer("tectonic").get(),
@@ -52,8 +52,8 @@ public class TectonicFabric implements ModInitializer {
                 ResourcePackActivationType.ALWAYS_ENABLED
             );
         }
-        *///?} else {
-        Registry.register(LithostitchedBuiltInRegistries.MODIFIER_PREDICATE_TYPE, id("config"), TectonicModifierPredicate.CODEC);
+        //?} else {
+        /*Registry.register(LithostitchedBuiltInRegistries.MODIFIER_PREDICATE_TYPE, id("config"), TectonicModifierPredicate.CODEC);
         if (ConfigHandler.getState().general.modEnabled) {
             ResourceManagerHelper.registerBuiltinResourcePack(
                 id("tectonic"),
@@ -70,11 +70,11 @@ public class TectonicFabric implements ModInitializer {
             if (terralith) addPack("tectonic/overlay.terratonic");
             if (increasedHeight) addPack("tectonic/overlay.increased_height" + (terralith ? "_terratonic" : ""));
         }
-        //?}
+        *///?}
     }
 
     //? if 1.20.1 {
-    private static void addPack(String packName) {
+    /*private static void addPack(String packName) {
         Path resourcePath = FabricLoader.getInstance().getModContainer("tectonic").get().findPath("resourcepacks/"+packName).get();
         PACKS.add(Pack.readMetaAndCreate(
             "tectonic/" + packName.toLowerCase(),
@@ -86,6 +86,6 @@ public class TectonicFabric implements ModInitializer {
             PackSource.BUILT_IN
         ));
     }
-    //?}
+    *///?}
 }
 //?}

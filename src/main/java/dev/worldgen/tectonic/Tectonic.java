@@ -29,19 +29,19 @@ public class Tectonic {
 
     public static ResourceLocation id(String name) {
         //? if 1.20.1 {
-        return new ResourceLocation(MOD_ID, name);
-        //?} else {
-        /*return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
-        *///?}
+        /*return new ResourceLocation(MOD_ID, name);
+        *///?} else {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
+        //?}
     }
 
     public static <T, U> Codec<T> withAlternative(final Codec<T> primary, final Codec<U> alternative, final Function<U, T> converter) {
         //? if 1.20.1 {
-        return Codec
+        /*return Codec
                 .either(primary, alternative)
                 .xmap(either -> either.map(v -> v, converter), Either::left);
-        //?} else {
-        /*return Codec.withAlternative(primary, alternative, converter);
-         *///?}
+        *///?} else {
+        return Codec.withAlternative(primary, alternative, converter);
+         //?}
     }
 }
