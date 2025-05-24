@@ -5,7 +5,20 @@
     "input": "tectonic:overworld/island_selector",
     "min_inclusive": 0.9,
     "max_exclusive": 1.1,
-    "when_in_range": 0.3,
+    "when_in_range": {
+      "type": "minecraft:clamp",
+      "input": {
+        "type": "minecraft:shifted_noise",
+        "noise": "tectonic:island_temperature",
+        "xz_scale": 0.25,
+        "y_scale": 0,
+        "shift_x": "minecraft:shift_x",
+        "shift_y": 0,
+        "shift_z": "minecraft:shift_z"
+      },
+      "min": -0.25,
+      "max": 0.25
+    },
     "when_out_of_range": {
       "type": "minecraft:mul",
       "argument1": {

@@ -1,10 +1,16 @@
 //? if fabric {
 package dev.worldgen.tectonic.loaders.fabric;
 
-import dev.worldgen.lithostitched.registry.LithostitchedBuiltInRegistries;
 import dev.worldgen.tectonic.Tectonic;
 import dev.worldgen.tectonic.config.ConfigHandler;
 //? if 1.20.1 {
+/*import dev.worldgen.lithostitched.registry.LithostitchedBuiltInRegistries;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.PathPackResources;
+import net.minecraft.server.packs.repository.PackSource;
+import java.nio.file.Path;
+*///?} else {
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 //?}
 import dev.worldgen.tectonic.worldgen.densityfunction.ConfigConstant;
 import dev.worldgen.tectonic.worldgen.densityfunction.ConfigNoise;
@@ -15,12 +21,8 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.packs.PackType;
-import net.minecraft.server.packs.PathPackResources;
 import net.minecraft.server.packs.repository.Pack;
-import net.minecraft.server.packs.repository.PackSource;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
