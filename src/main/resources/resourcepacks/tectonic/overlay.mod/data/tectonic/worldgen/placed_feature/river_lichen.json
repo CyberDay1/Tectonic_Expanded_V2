@@ -32,7 +32,7 @@
       "type": "lithostitched:condition",
       "condition": {
         "type": "lithostitched:sample_density",
-        "density_function": "tectonic:overworld/underground_river/parameters",
+        "density_function": "tectonic:underground_river/parameters",
         "min_inclusive": 1,
         "max_inclusive": 1
       }

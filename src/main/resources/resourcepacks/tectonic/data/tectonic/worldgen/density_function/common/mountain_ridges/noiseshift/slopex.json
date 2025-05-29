@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:add",
-  "argument1": "tectonic:common/mountain_ridges/noiseshift/base",
-  "argument2": {
-    "type": "minecraft:mul",
-    "argument1": -1,
-    "argument2": "tectonic:common/mountain_ridges/noiseshift/shiftx"
-  }
-}

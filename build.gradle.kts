@@ -10,6 +10,8 @@ fun prop(name: String, consumer: (prop: String) -> Unit) {
         ?.let(consumer)
 }
 
+val modVersion = "${property("mod_version")}"
+
 val minecraft = property("deps.minecraft") as String;
 
 val isFabric = modstitch.isLoom
@@ -128,10 +130,20 @@ stonecutter {
 // use the modstitch.createProxyConfigurations(sourceSets["client"]) function.
 dependencies {
     modstitchModImplementation("maven.modrinth:lithostitched:${property("deps.lithostitched")}")
-    //modstitchModImplementation("maven.modrinth:terralith:${property("deps.terralith")}")
     if (isFabric) {
         modstitchModImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
         modstitchModImplementation("com.terraformersmc:modmenu:${property("deps.mod_menu")}")
+    }
+
+    //modstitchModImplementation("maven.modrinth:terralith:${property("deps.terralith")}")
+    if (minecraft != "1.20.1") {
+        //modstitchModImplementation("maven.modrinth:clifftree:${property("deps.clifftree")}")
+    }
+}
+
+tasks {
+    modstitch.finalJarTask {
+        archiveVersion.set("$modVersion-$loader-$minecraft")
     }
 }
 

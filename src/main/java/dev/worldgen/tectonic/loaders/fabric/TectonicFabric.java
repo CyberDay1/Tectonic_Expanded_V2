@@ -70,7 +70,7 @@ public class TectonicFabric implements ModInitializer {
             boolean increasedHeight = ConfigHandler.getState().globalTerrain.increasedHeight;
             addPack("tectonic/overlay.mod");
             if (terralith) addPack("tectonic/overlay.terratonic");
-            if (increasedHeight) addPack("tectonic/overlay.increased_height" + (terralith ? "_terratonic" : ""));
+            if (increasedHeight) addPack("tectonic/overlay." + (terralith ? "terratonic_" : "") + "increased_height");
         }
         *///?}
     }

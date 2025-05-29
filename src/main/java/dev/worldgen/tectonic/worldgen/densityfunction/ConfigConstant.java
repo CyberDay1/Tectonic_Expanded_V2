@@ -34,12 +34,12 @@ public record ConfigConstant(double value) implements DensityFunction {
 
     @Override
     public double minValue() {
-        return -10000000;
+        return value;
     }
 
     @Override
     public double maxValue() {
-        return 10000000;
+        return value;
     }
 
     @Override

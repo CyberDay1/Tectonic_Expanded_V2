@@ -34,16 +34,21 @@ public class ConfigState {
     public double getValue(String option) {
         return switch (option) {
             case "vertical_scale" -> this.globalTerrain.verticalScale;
-            case "lava_rivers" -> this.globalTerrain.lavaRivers ? 1 : 0;
+            case "lava_tunnels" -> this.globalTerrain.lavaTunnels ? 1 : 0;
 
             case "ocean_offset" -> this.continents.oceanOffset;
             case "continents_scale" -> this.continents.continentsScale;
             case "erosion_scale" -> this.continents.erosionScale;
+            case "ridge_scale" -> this.continents.ridgeScale;
             case "underground_rivers" -> this.continents.undergroundRivers ? -1 : 0;
             case "flat_terrain_skew" -> this.continents.flatTerrainSkew;
+            case "rolling_hills" -> this.continents.rollingHills ? 1 : 0;
+            case "jungle_pillars" -> this.continents.junglePillars ? 1 : 0;
 
             case "ocean_depth" -> this.oceans.oceanDepth;
             case "deep_ocean_depth" -> this.oceans.deepOceanDepth;
+
+            case "islands_scale" -> this.islands.noiseScale;
 
             case "temperature_multiplier" -> this.biomes.temperatureMultiplier;
             case "temperature_scale" -> this.biomes.temperatureScale;
@@ -57,23 +62,19 @@ public class ConfigState {
 
     public static class General {
         public static final boolean MOD_ENABLED = true;
-        public static final boolean HIDE_BETA_WARNING = false;
         public static final int SNOW_START_OFFSET = 128;
 
-        public static final General DEFAULT = new General(MOD_ENABLED, HIDE_BETA_WARNING, SNOW_START_OFFSET);
+        public static final General DEFAULT = new General(MOD_ENABLED, SNOW_START_OFFSET);
         public static final Codec<General> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.BOOL.fieldOf("mod_enabled").forGetter(general -> general.modEnabled),
-            Codec.BOOL.fieldOf("hide_beta_warning").orElse(HIDE_BETA_WARNING).forGetter(general -> general.hideBetaWarning),
             Codec.INT.fieldOf("snow_start_offset").orElse(SNOW_START_OFFSET).forGetter(general -> general.snowStartOffset)
         ).apply(instance, General::new));
 
         public boolean modEnabled;
-        public boolean hideBetaWarning;
         public int snowStartOffset;
 
-        public General(boolean modEnabled, boolean hideBetaWarning, int snowStartOffset) {
+        public General(boolean modEnabled, int snowStartOffset) {
             this.modEnabled = modEnabled;
-            this.hideBetaWarning = hideBetaWarning;
             this.snowStartOffset = snowStartOffset;
         }
     }
@@ -81,23 +82,23 @@ public class ConfigState {
     public static class GlobalTerrain {
         public static final double VERTICAL_SCALE = 1.125;
         public static final boolean INCREASED_HEIGHT = false;
-        public static final boolean LAVA_RIVERS = true;
+        public static final boolean LAVA_TUNNELS = true;
 
-        public static final GlobalTerrain DEFAULT = new GlobalTerrain(VERTICAL_SCALE, INCREASED_HEIGHT, LAVA_RIVERS);
+        public static final GlobalTerrain DEFAULT = new GlobalTerrain(VERTICAL_SCALE, INCREASED_HEIGHT, LAVA_TUNNELS);
         public static final Codec<GlobalTerrain> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.DOUBLE.fieldOf("vertical_scale").orElse(VERTICAL_SCALE).forGetter(globalTerrain -> globalTerrain.verticalScale),
             Codec.BOOL.fieldOf("increased_height").orElse(INCREASED_HEIGHT).forGetter(globalTerrain -> globalTerrain.increasedHeight),
-            Codec.BOOL.fieldOf("lava_rivers").orElse(LAVA_RIVERS).forGetter(globalTerrain -> globalTerrain.lavaRivers)
+            Codec.BOOL.fieldOf("lava_tunnels").orElse(LAVA_TUNNELS).forGetter(globalTerrain -> globalTerrain.lavaTunnels)
         ).apply(instance, GlobalTerrain::new));
 
         public double verticalScale;
         public boolean increasedHeight;
-        public boolean lavaRivers;
+        public boolean lavaTunnels;
 
-        public GlobalTerrain(double verticalScale, boolean increasedHeight, boolean lavaRivers) {
+        public GlobalTerrain(double verticalScale, boolean increasedHeight, boolean lavaTunnels) {
             this.verticalScale = verticalScale;
             this.increasedHeight = increasedHeight;
-            this.lavaRivers = lavaRivers;
+            this.lavaTunnels = lavaTunnels;
         }
     }
 
@@ -105,49 +106,65 @@ public class ConfigState {
         public static final double OCEAN_OFFSET = -0.8;
         public static final double CONTINENTS_SCALE = 0.13;
         public static final double EROSION_SCALE = 0.25;
+        public static final double RIDGE_SCALE = 0.25;
         public static final boolean UNDERGROUND_RIVERS = true;
         public static final boolean RIVER_LANTERNS = true;
         public static final double FLAT_TERRAIN_SKEW = 0.1;
+        public static final boolean ROLLING_HILLS = true;
+        public static final boolean JUNGLE_PILLARS = true;
 
-        public static final Continents DEFAULT = new Continents(OCEAN_OFFSET, CONTINENTS_SCALE, EROSION_SCALE, UNDERGROUND_RIVERS, RIVER_LANTERNS, FLAT_TERRAIN_SKEW);
+        public static final Continents DEFAULT = new Continents(OCEAN_OFFSET, CONTINENTS_SCALE, EROSION_SCALE, RIDGE_SCALE, UNDERGROUND_RIVERS, RIVER_LANTERNS, FLAT_TERRAIN_SKEW, ROLLING_HILLS, JUNGLE_PILLARS);
         public static final Codec<Continents> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.DOUBLE.fieldOf("ocean_offset").orElse(OCEAN_OFFSET).forGetter(continents -> continents.oceanOffset),
             Codec.DOUBLE.fieldOf("continents_scale").orElse(CONTINENTS_SCALE).forGetter(continents -> continents.continentsScale),
             Codec.DOUBLE.fieldOf("erosion_scale").orElse(EROSION_SCALE).forGetter(continents -> continents.erosionScale),
+            Codec.DOUBLE.fieldOf("ridge_scale").orElse(RIDGE_SCALE).forGetter(continents -> continents.ridgeScale),
             Codec.BOOL.fieldOf("underground_rivers").orElse(UNDERGROUND_RIVERS).forGetter(continents -> continents.undergroundRivers),
             Codec.BOOL.fieldOf("river_lanterns").orElse(RIVER_LANTERNS).forGetter(continents -> continents.riverLanterns),
-            Codec.DOUBLE.fieldOf("flat_terrain_skew").orElse(FLAT_TERRAIN_SKEW).forGetter(continents -> continents.flatTerrainSkew)
+            Codec.DOUBLE.fieldOf("flat_terrain_skew").orElse(FLAT_TERRAIN_SKEW).forGetter(continents -> continents.flatTerrainSkew),
+            Codec.BOOL.fieldOf("rolling_hills").orElse(ROLLING_HILLS).forGetter(continents -> continents.rollingHills),
+            Codec.BOOL.fieldOf("jungle_pillars").orElse(JUNGLE_PILLARS).forGetter(continents -> continents.junglePillars)
         ).apply(instance, Continents::new));
 
         public double oceanOffset;
         public double continentsScale;
         public double erosionScale;
+        public double ridgeScale;
         public boolean undergroundRivers;
         public boolean riverLanterns;
         public double flatTerrainSkew;
+        public boolean rollingHills;
+        public boolean junglePillars;
 
-        public Continents(double oceanOffset, double continentsScale, double erosionScale, boolean undergroundRivers, boolean riverLanterns, double flatTerrainSkew) {
+        public Continents(double oceanOffset, double continentsScale, double erosionScale, double ridgeScale, boolean undergroundRivers, boolean riverLanterns, double flatTerrainSkew, boolean rollingHills, boolean junglePillars) {
             this.oceanOffset = oceanOffset;
             this.continentsScale = continentsScale;
             this.erosionScale = erosionScale;
+            this.ridgeScale = ridgeScale;
             this.undergroundRivers = undergroundRivers;
             this.riverLanterns = riverLanterns;
             this.flatTerrainSkew = flatTerrainSkew;
+            this.rollingHills = rollingHills;
+            this.junglePillars = junglePillars;
         }
     }
 
     public static class Islands {
         public static final boolean ENABLED = true;
+        public static final double NOISE_SCALE = 0.11;
 
-        public static final Islands DEFAULT = new Islands(ENABLED);
+        public static final Islands DEFAULT = new Islands(ENABLED, NOISE_SCALE);
         public static final Codec<Islands> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.BOOL.fieldOf("enabled").orElse(ENABLED).forGetter(islands -> islands.enabled)
+            Codec.BOOL.fieldOf("enabled").orElse(ENABLED).forGetter(islands -> islands.enabled),
+            Codec.DOUBLE.fieldOf("noise_scale").orElse(NOISE_SCALE).forGetter(islands -> islands.noiseScale)
         ).apply(instance, Islands::new));
 
         public boolean enabled;
+        public double noiseScale;
 
-        public Islands(boolean enabled) {
+        public Islands(boolean enabled, double noiseScale) {
             this.enabled = enabled;
+            this.noiseScale = noiseScale;
         }
     }
 

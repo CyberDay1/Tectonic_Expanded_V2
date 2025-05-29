@@ -29,7 +29,6 @@ public class V2ConfigState {
         return new ConfigState(
             new ConfigState.General(
                 this.enabled,
-                false,
                 this.snowOffset
             ),
             new ConfigState.GlobalTerrain(
@@ -41,12 +40,16 @@ public class V2ConfigState {
                 -0.8,
                 0.13,
                 this.scales.erosionScale,
+                0.25,
                 this.toggles.undergroundRivers,
                 true,
-                0.1
+                0.1,
+                true,
+                true
             ),
             new ConfigState.Islands(
-                true
+                true,
+                0.11
             ),
             new ConfigState.Oceans(
                 this.scales.ocean,

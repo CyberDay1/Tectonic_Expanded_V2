@@ -1,13 +1,13 @@
 {
   "type": "minecraft:spline",
   "spline": {
-    "coordinate": "tectonic:overworld/noise/temperature_index",
+    "coordinate": "tectonic:noise/temperature_index",
     "points": [
       {
         "derivative": 0,
         "location": 1,
         "value": {
-          "coordinate": "tectonic:overworld/noise/continent/erosion",
+          "coordinate": "tectonic:noise/continent/erosion",
           "points": [
             {
               "derivative": 0,
@@ -23,7 +23,7 @@
               "derivative": 0,
               "location": 0.9,
               "value": {
-                "coordinate": "tectonic:overworld/noise/raw_continents",
+                "coordinate": "tectonic:noise/raw_continents",
                 "points": [
                   {
                     "derivative": 0,

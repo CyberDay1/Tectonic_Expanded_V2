@@ -31,17 +31,17 @@
                     "argument1": -1,
                     "argument2": {
                       "type": "minecraft:mul",
-                      "argument1": "tectonic:common/upper_slope",
+                      "argument1": "tectonic:upper_slope",
                       "argument2": {
                         "type": "minecraft:add",
                         "argument1": 1,
                         "argument2": {
                           "type": "minecraft:range_choice",
-                          "input": "tectonic:overworld/depth",
+                          "input": "tectonic:depth",
                           "min_inclusive": -1000000,
                           "max_exclusive": 0.1,
-                          "when_in_range": "tectonic:overworld/sloped_cheese",
-                          "when_out_of_range": "tectonic:overworld/caves"
+                          "when_in_range": "tectonic:sloped_cheese",
+                          "when_out_of_range": "tectonic:caves"
                         }
                       }
                     }
@@ -56,8 +56,12 @@
     "argument2": "minecraft:overworld/caves/noodle"
   },
   "argument2": {
-    "type": "minecraft:min",
-    "argument1": 0.02,
-    "argument2": "tectonic:overworld/underground_river/total"
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:min",
+      "argument1": 0.02,
+      "argument2": "tectonic:underground_river/total"
+    },
+    "argument2": "tectonic:lava_tunnel/total"
   }
 }

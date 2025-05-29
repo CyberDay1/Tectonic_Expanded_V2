@@ -15,7 +15,7 @@
             "argument1": {
               "type": "minecraft:spline",
               "spline": {
-                "coordinate": "tectonic:overworld/noise/full_continents",
+                "coordinate": "tectonic:noise/full_continents",
                 "points": [
                   {
                     "location": -1,
@@ -40,15 +40,15 @@
                 ]
               }
             },
-            "argument2": "tectonic:overworld/depth"
+            "argument2": "tectonic:depth"
           },
           "argument2": {
             "type": "minecraft:range_choice",
-            "input": "tectonic:overworld/continent_selector",
+            "input": "tectonic:continent_selector",
             "min_inclusive": 0.9,
             "max_exclusive": 1.1,
-            "when_in_range": "tectonic:overworld/terrain_spline/factor/continents",
-            "when_out_of_range": "tectonic:overworld/terrain_spline/factor/islands"
+            "when_in_range": "tectonic:terrain_spline/factor/continents",
+            "when_out_of_range": "tectonic:terrain_spline/factor/islands"
           }
         }
       }
