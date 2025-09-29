@@ -7,6 +7,11 @@
   },
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "ChunkSerializerMixin"
+    "ChunkSerializerMixin",
+    "com.cyberday1.tectonicexpanded.mixin.HeightmapMixin",
+    "com.cyberday1.tectonicexpanded.mixin.LevelHeightAccessorMixin",
+    "com.cyberday1.tectonicexpanded.mixin.StrongholdStructureMixin",
+    "com.cyberday1.tectonicexpanded.mixin.OceanMonumentStructureMixin",
+    "com.cyberday1.tectonicexpanded.mixin.MineshaftStructureMixin"
   ]
 }
