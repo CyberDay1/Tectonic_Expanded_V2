@@ -16,7 +16,8 @@ public class IOWorkerMixin {
         cancellable = true
     )
     private void theexpanse$needsBlending(CompoundTag nbt, CallbackInfoReturnable<Boolean> cir) {
-        if (/*? >1.21.1 {*/nbt.getIntOr(TheExpanse.BLENDING_KEY, 0)/*?} else {*//*nbt.getInt(TheExpanse.BLENDING_KEY)*//*?}*/ != TheExpanse.BLENDING_VERSION) {
+        int blendingVersion = nbt.contains(TheExpanse.BLENDING_KEY, 3) ? nbt.getInt(TheExpanse.BLENDING_KEY) : 0;
+        if (blendingVersion != TheExpanse.BLENDING_VERSION) {
             cir.setReturnValue(true);
         }
     }
