@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "tectonic",
-  "name": "Tectonic",
+  "id": "theexpanse",
+  "name": "The Expanse",
   "version": "${mod_version}",
-  "description": "Terrain shaping brought to new heights, grander and more varied than ever before. Welcome to Tectonic v3.",
+  "description": "Terrain shaping brought to new heights, grander and more varied than ever before. Welcome to The Expanse v3.",
   "authors": [
     "Apollo"
   ],
@@ -13,18 +13,18 @@
     "Uni"
   ],
   "contact": {
-    "homepage": "https://modrinth.com/project/tectonic",
-    "sources": "https://github.com/Apollounknowndev/tectonic/",
-    "issues": "https://github.com/Apollounknowndev/tectonic/issues"
+    "homepage": "https://modrinth.com/project/theexpanse",
+    "sources": "https://github.com/CyberDay1/TheExpanse/",
+    "issues": "https://github.com/CyberDay1/TheExpanse/issues"
   },
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.worldgen.tectonic.loaders.fabric.TectonicFabric"
+      "dev.worldgen.theexpanse.loaders.fabric.TheExpanseFabric"
     ],
     "modmenu": [
-      "dev.worldgen.tectonic.compat.TectonicModMenuCompat"
+      "dev.worldgen.theexpanse.compat.TheExpanseModMenuCompat"
     ]
   },
   "icon": "pack.png",

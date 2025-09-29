@@ -1,1 +1,1 @@
-A modfied version of tectonic 3.0, increased build and generation height
+A modified version of The Expanse 3.0, increased build and generation height

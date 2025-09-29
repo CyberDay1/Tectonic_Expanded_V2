@@ -49,10 +49,10 @@ modstitch {
     // This metadata is used to fill out the information inside
     // the metadata files found in the templates folder.
     metadata {
-        modId = "tectonic"
-        modName = "Tectonic"
-        modVersion = "${property("mod_version")}"
-        modGroup = "dev.worldgen"
+        modId = "theexpanse"
+        modName = "The Expanse"
+        modVersion = "${property("mod_version")}" 
+        modGroup = "com.cyberday1"
 
         fun <K, V> MapProperty<K, V>.populate(block: MapProperty<K, V>.() -> Unit) {
             block()
@@ -61,7 +61,7 @@ modstitch {
         replacementProperties.populate {
             // You can put any other replacement properties/metadata here that
             // modstitch doesn't initially support. Some examples below.
-            put("mod_issue_tracker", "https://github.com/Apollounknowndev/tectonic/issues")
+            put("mod_issue_tracker", "https://github.com/CyberDay1/TheExpanse/issues")
         }
     }
 
@@ -103,11 +103,11 @@ modstitch {
         // true, it will automatically be generated.
         addMixinsToModManifest = true
 
-        configs.register("tectonic")
+        configs.register("theexpanse")
 
-        if (minecraft == "1.20.1") configs.register("tectonic_1.20.1")
-        if (minecraft == "1.21.1") configs.register("tectonic_1.21.1")
-        if (minecraft == "1.21.5") configs.register("tectonic_1.21.5")
+        if (minecraft == "1.20.1") configs.register("theexpanse_1.20.1")
+        if (minecraft == "1.21.1") configs.register("theexpanse_1.21.1")
+        if (minecraft == "1.21.5") configs.register("theexpanse_1.21.5")
 
         // Most of the time you wont ever need loader specific mixins.
         // If you do, simply make the mixin file and add it like so for the respective loader:

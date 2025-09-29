@@ -48,5 +48,5 @@ stonecutter {
     }
 }
 
-rootProject.name = "tectonic"
+rootProject.name = "the-expanse"
 
