@@ -14,7 +14,7 @@ public abstract class OceanMonumentStructureMixin {
     // CUSTOM: extended vertical range (structure placement)
     @Inject(method = "generatePieces", at = @At("TAIL"))
     private static void theexpanse$extendMonument(StructurePiecesBuilder builder, GenerationContext context, CallbackInfo ci) {
-        if (context.chunkGenerator().getMinBuildHeight() > WorldgenConstants.OVERWORLD_MIN_Y) {
+        if (context.chunkGenerator().getMinY() > WorldgenConstants.OVERWORLD_MIN_Y) {
             builder.moveBelowSeaLevel(
                 context.chunkGenerator().getSeaLevel(),
                 WorldgenConstants.OVERWORLD_MIN_Y,
