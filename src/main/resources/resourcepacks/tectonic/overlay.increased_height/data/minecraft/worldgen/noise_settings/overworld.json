@@ -12,14 +12,14 @@
   "disable_mob_generation": false,
   "legacy_random_source": false,
   "noise": {
-    "min_y": -64,
-    "height": 704,
+    "min_y": -2032,
+    "height": 4064,
     "size_horizontal": 1,
     "size_vertical": 2
   },
   "noise_router": {
-    "barrier": "minecraft:overworld/noise_router/barrier", 
-    "continents": "minecraft:overworld/noise_router/continents", 
+    "barrier": "minecraft:overworld/noise_router/barrier",
+    "continents": "minecraft:overworld/noise_router/continents",
     "depth": "minecraft:overworld/noise_router/depth",
     "erosion": "minecraft:overworld/noise_router/erosion",
     "final_density": "minecraft:overworld/noise_router/final_density",
