@@ -1,6 +1,7 @@
 //? if 1.21.1 {
 /*package dev.worldgen.tectonic.mixin;
 
+import com.cyberday1.tectonicexpanded.world.WorldgenConstants;
 import dev.worldgen.tectonic.Tectonic;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
@@ -39,14 +40,16 @@ public class ChunkSerializerMixin {
         if (STATUSES_TO_SKIP_BLENDING.contains(ChunkStatus.byName(nbt.getString("Status")).toString())) return;
         if (nbt.getInt(Tectonic.BLENDING_KEY) != Tectonic.BLENDING_VERSION) {
             int min = 0, max = 0;
+            int minSectionIndex = WorldgenConstants.getSectionIndex(WorldgenConstants.OVERWORLD_MIN_Y); // CUSTOM: extended vertical range (heightmap/sectionpos/structure)
+            int maxSectionIndex = WorldgenConstants.getSectionIndex(WorldgenConstants.OVERWORLD_MAX_Y); // CUSTOM: extended vertical range (heightmap/sectionpos/structure)
             ListTag sections = nbt.getList("sections", ListTag.TAG_COMPOUND);
             for (Tag section : sections) {
                 int y = section instanceof IntTag tag ? tag.getAsInt() : 0;
                 min = Math.min(y, min);
                 max = Math.max(y, max);
             }
-            min = Math.min(min, Tectonic.OVERWORLD_MIN_SECTION); // CUSTOM: extended vertical range
-            max = Math.max(max, Tectonic.OVERWORLD_MAX_SECTION); // CUSTOM: extended vertical range
+            min = Math.min(min, minSectionIndex); // CUSTOM: extended vertical range (heightmap/sectionpos/structure)
+            max = Math.max(max, maxSectionIndex); // CUSTOM: extended vertical range (heightmap/sectionpos/structure)
             CompoundTag blendingData = new CompoundTag();
             blendingData.putInt("min_section", min);
             blendingData.putInt("max_section", max);
