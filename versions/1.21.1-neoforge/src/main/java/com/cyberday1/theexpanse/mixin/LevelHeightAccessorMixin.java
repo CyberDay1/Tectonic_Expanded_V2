@@ -30,7 +30,7 @@ public interface LevelHeightAccessorMixin extends LevelHeightAccessorExtension {
     default int getMinSection() {
         int minY = this.getMinY();
         int height = this.getMaxY() - minY;
-        if (minY == WorldgenConstants.OVERWORLD_MIN_Y && height == WorldgenConstants.OVERWORLD_HEIGHT) {
+        if (theexpanse$usesCustomOverworldBounds(minY, height)) {
             return SectionPos.blockToSectionCoord(WorldgenConstants.OVERWORLD_MIN_Y);
         }
         return SectionPos.blockToSectionCoord(minY);
@@ -41,7 +41,7 @@ public interface LevelHeightAccessorMixin extends LevelHeightAccessorExtension {
     default int getMaxSection() {
         int minY = this.getMinY();
         int height = this.getMaxY() - minY;
-        if (minY == WorldgenConstants.OVERWORLD_MIN_Y && height == WorldgenConstants.OVERWORLD_HEIGHT) {
+        if (theexpanse$usesCustomOverworldBounds(minY, height)) {
             return SectionPos.blockToSectionCoord(WorldgenConstants.OVERWORLD_MAX_Y) + 1;
         }
         return SectionPos.blockToSectionCoord(this.getMaxY() - 1) + 1;
@@ -52,9 +52,13 @@ public interface LevelHeightAccessorMixin extends LevelHeightAccessorExtension {
     default int getSectionsCount() {
         int minY = this.getMinY();
         int height = this.getMaxY() - minY;
-        if (minY == WorldgenConstants.OVERWORLD_MIN_Y && height == WorldgenConstants.OVERWORLD_HEIGHT) {
+        if (theexpanse$usesCustomOverworldBounds(minY, height)) {
             return WorldgenConstants.OVERWORLD_SECTION_COUNT;
         }
         return this.getMaxSection() - this.getMinSection();
+    }
+
+    private static boolean theexpanse$usesCustomOverworldBounds(int minY, int height) {
+        return minY == WorldgenConstants.OVERWORLD_MIN_Y && height == WorldgenConstants.OVERWORLD_HEIGHT;
     }
 }

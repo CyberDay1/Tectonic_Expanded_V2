@@ -16,8 +16,7 @@ public abstract class HeightmapMixin {
         int customTop = WorldgenConstants.OVERWORLD_MAX_Y + 1;
         LevelHeightAccessorExtension accessor = (LevelHeightAccessorExtension) chunkAccess;
         int minY = accessor.getMinY();
-        int height = accessor.getMaxY() - minY;
-        if (height == WorldgenConstants.OVERWORLD_HEIGHT && minY == WorldgenConstants.OVERWORLD_MIN_Y) {
+        if (theexpanse$shouldExtendTop(accessor, minY)) {
             return Math.max(vanillaTop, customTop);
         }
         return vanillaTop;
@@ -28,8 +27,7 @@ public abstract class HeightmapMixin {
     private static int theexpanse$extendHeightmapBottomPrime(ChunkAccess chunkAccess) {
         LevelHeightAccessorExtension accessor = (LevelHeightAccessorExtension) chunkAccess;
         int vanillaMin = accessor.getMinY();
-        int height = accessor.getMaxY() - vanillaMin;
-        if (height == WorldgenConstants.OVERWORLD_HEIGHT && vanillaMin > WorldgenConstants.OVERWORLD_MIN_Y) {
+        if (theexpanse$shouldExtendBottom(accessor, vanillaMin)) {
             return WorldgenConstants.OVERWORLD_MIN_Y;
         }
         return vanillaMin;
@@ -40,10 +38,21 @@ public abstract class HeightmapMixin {
     private int theexpanse$extendHeightmapBottomUpdate(ChunkAccess chunkAccess) {
         LevelHeightAccessorExtension accessor = (LevelHeightAccessorExtension) chunkAccess;
         int vanillaMin = accessor.getMinY();
-        int height = accessor.getMaxY() - vanillaMin;
-        if (height == WorldgenConstants.OVERWORLD_HEIGHT && vanillaMin > WorldgenConstants.OVERWORLD_MIN_Y) {
+        if (theexpanse$shouldExtendBottom(accessor, vanillaMin)) {
             return WorldgenConstants.OVERWORLD_MIN_Y;
         }
         return vanillaMin;
+    }
+
+    private static boolean theexpanse$shouldExtendTop(LevelHeightAccessorExtension accessor, int minY) {
+        return theexpanse$hasFullOverworldSpan(accessor, minY) && minY == WorldgenConstants.OVERWORLD_MIN_Y;
+    }
+
+    private static boolean theexpanse$shouldExtendBottom(LevelHeightAccessorExtension accessor, int minY) {
+        return theexpanse$hasFullOverworldSpan(accessor, minY) && minY > WorldgenConstants.OVERWORLD_MIN_Y;
+    }
+
+    private static boolean theexpanse$hasFullOverworldSpan(LevelHeightAccessorExtension accessor, int minY) {
+        return accessor.getMaxY() - minY == WorldgenConstants.OVERWORLD_HEIGHT;
     }
 }
