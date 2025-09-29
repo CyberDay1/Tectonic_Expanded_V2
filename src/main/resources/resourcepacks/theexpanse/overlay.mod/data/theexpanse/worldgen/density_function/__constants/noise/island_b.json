@@ -1,0 +1,7 @@
+{
+  "type": "theexpanse:config_noise",
+  "noise": "theexpanse:island/continents_b",
+  "key": "islands_scale",
+  "shift_x": 0,
+  "shift_z": 0
+}

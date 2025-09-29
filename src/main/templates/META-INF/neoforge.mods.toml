@@ -1,25 +1,27 @@
 modLoader = "javafml"
 loaderVersion = "[1,)"
-issueTrackerURL = "https://github.com/Apollounknowndev/tectonic/issues"
+issueTrackerURL = "https://github.com/CyberDay1/TheExpanse/issues"
 license = "MIT"
 
 [[mods]]
-    modId = "tectonic"
+    modId = "theexpanse"
     version = "${mod_version}"
-    displayName = "Tectonic"
-    description = '''Terrain shaping brought to new heights, grander and more varied than ever before. Welcome to Tectonic v3.'''
+    displayName = "The Expanse"
+    description = '''Terrain shaping brought to new heights, grander and more varied than ever before. Welcome to The Expanse.'''
     authors = "Apollo (Developer), HB Stratos (Contributor), DawnKiro (Contributor), Uni (Contributor)"
     logoFile = "pack.png"
 
 [[dependencies.${mod_id}]]
     modId = "neoforge"
     type = "required"
+    versionRange = "[21.1.0,)"
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.${mod_id}]]
     modId = "minecraft"
     type = "required"
+    versionRange = "[1.21.1,1.21.2)"
 
 [[dependencies.${mod_id}]]
     modId = "lithostitched"

@@ -1,0 +1,22 @@
+{
+  "predicate": {
+    "type": "theexpanse:config",
+    "key": "river_lanterns"
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "theexpanse:config",
+      "key": "river_lanterns"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "theexpanse:config",
+      "key": "river_lanterns"
+    }
+  ],
+  "type": "lithostitched:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "theexpanse:river_lanterns",
+  "step": "vegetal_decoration"
+}
