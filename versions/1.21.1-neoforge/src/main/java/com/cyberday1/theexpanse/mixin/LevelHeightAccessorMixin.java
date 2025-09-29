@@ -5,9 +5,26 @@ import net.minecraft.core.SectionPos;
 import net.minecraft.world.level.LevelHeightAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(LevelHeightAccessor.class)
-public interface LevelHeightAccessorMixin {
+public interface LevelHeightAccessorMixin extends LevelHeightAccessorExtension {
+    @Shadow
+    int getMinBuildHeight();
+
+    @Shadow
+    int getMaxBuildHeight();
+
+    @Override
+    default int getMinY() {
+        return this.getMinBuildHeight();
+    }
+
+    @Override
+    default int getMaxY() {
+        return this.getMaxBuildHeight();
+    }
+
     // CUSTOM: extended vertical range (sectionpos)
     @Overwrite
     default int getMinSection() {
