@@ -16,16 +16,9 @@ fun prop(name: String, consumer: (prop: String) -> Unit) {
 }
 
 val modVersion = "${property("mod_version")}"
-
-val minecraft = property("deps.minecraft") as String;
-
-val isFabric = modstitch.isLoom
-val isNeoforge = modstitch.isModDevGradleRegular
-val isForge = modstitch.isModDevGradleLegacy
-val isForgeLike = modstitch.isModDevGradle
+val minecraft = property("deps.minecraft") as String
 
 val loader = when {
-    modstitch.isLoom -> "fabric"
     modstitch.isModDevGradle -> "neoforge"
     else -> error("Unknown loader")
 }
@@ -35,10 +28,7 @@ modstitch {
 
     // Alternatively use stonecutter.eval if you have a lot of versions to target.
     // https://stonecutter.kikugie.dev/stonecutter/guide/setup#checking-versions
-    javaTarget = when (minecraft) {
-        "1.20.1" -> 17
-        else -> 21
-    }
+    javaTarget = 21
 
     // If parchment doesnt exist for a version yet you can safely
     // omit the "deps.parchment" property from your versioned gradle.properties
@@ -51,7 +41,7 @@ modstitch {
     metadata {
         modId = "theexpanse"
         modName = "The Expanse"
-        modVersion = "${property("mod_version")}" 
+        modVersion = "${property("mod_version")}"
         modGroup = "com.cyberday1"
 
         fun <K, V> MapProperty<K, V>.populate(block: MapProperty<K, V>.() -> Unit) {
@@ -62,18 +52,6 @@ modstitch {
             // You can put any other replacement properties/metadata here that
             // modstitch doesn't initially support. Some examples below.
             put("mod_issue_tracker", "https://github.com/CyberDay1/TheExpanse/issues")
-        }
-    }
-
-    // Fabric Loom (Fabric)
-    loom {
-        // It's not recommended to store the Fabric Loader version in properties.
-        // Make sure its up to date.
-        fabricLoaderVersion = "0.16.10"
-
-        // Configure loom like normal in this block.
-        configureLoom {
-
         }
     }
 
@@ -105,7 +83,6 @@ modstitch {
 
         configs.register("theexpanse")
 
-        if (minecraft == "1.20.1") configs.register("theexpanse_1.20.1")
         if (minecraft == "1.21.1") configs.register("theexpanse_1.21.1")
         if (minecraft == "1.21.5") configs.register("theexpanse_1.21.5")
 
@@ -135,15 +112,9 @@ stonecutter {
 // use the modstitch.createProxyConfigurations(sourceSets["client"]) function.
 dependencies {
     modstitchModImplementation("maven.modrinth:lithostitched:${property("deps.lithostitched")}")
-    if (isFabric) {
-        modstitchModImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
-        modstitchModImplementation("com.terraformersmc:modmenu:${property("deps.mod_menu")}")
-    }
 
     //modstitchModImplementation("maven.modrinth:terralith:${property("deps.terralith")}")
-    if (minecraft != "1.20.1") {
-        //modstitchModImplementation("maven.modrinth:clifftree:${property("deps.clifftree")}")
-    }
+    //modstitchModImplementation("maven.modrinth:clifftree:${property("deps.clifftree")}")
 }
 
 tasks {
@@ -167,11 +138,9 @@ publishMods {
         accessToken.set(providers.environmentVariable("TOKEN_MR"))
         projectId.set("lWDHr9jE")
 
-        if (minecraft == "1.20.1") minecraftVersions.add("1.20.1")
         if (minecraft == "1.21.1") minecraftVersions.add("1.21.1")
         if (minecraft == "1.21.5") minecraftVersions.add("1.21.5")
 
-        if (isFabric) requires("fabric-api")
         requires("lithostitched")
         optional("worldgen-patches")
         incompatible("continents")
@@ -181,11 +150,9 @@ publishMods {
         accessToken.set(providers.environmentVariable("TOKEN_CF"))
         projectId.set("686836")
 
-        if (minecraft == "1.20.1") minecraftVersions.add("1.20.1")
         if (minecraft == "1.21.1") minecraftVersions.add("1.21.1")
         if (minecraft == "1.21.5") minecraftVersions.add("1.21.5")
 
-        if (isFabric) requires("fabric-api")
         requires("lithostitched")
         optional("worldgen-patches")
         incompatible("continents")
