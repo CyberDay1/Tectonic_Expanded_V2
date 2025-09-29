@@ -96,13 +96,10 @@ modstitch {
 
 // Stonecutter constants for mod loaders.
 // See https://stonecutter.kikugie.dev/stonecutter/guide/comments#condition-constants
-var constraint: String = name.split("-")[1]
+val constraint: String = name.split("-").getOrElse(1) { "" }
 stonecutter {
     consts(
-        "fabric" to constraint.equals("fabric"),
-        "neoforge" to constraint.equals("neoforge"),
-        "forge" to constraint.equals("forge"),
-        "vanilla" to constraint.equals("vanilla")
+        "neoforge" to (constraint == "neoforge")
     )
 }
 
