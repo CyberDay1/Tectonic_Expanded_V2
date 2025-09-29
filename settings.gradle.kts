@@ -6,18 +6,16 @@ pluginManagement {
         // Modstitch
         maven("https://maven.isxander.dev/releases/")
 
-        // Loom platform (required for Modstitch dependencies)
-        maven("https://maven.fabricmc.net/")
-
         // MDG platform
         maven("https://maven.neoforged.net/releases/")
 
+        // Modstitch has a transitive dependency on Fabric Loom for tooling APIs.
+        // Keeping the FabricMC repository ensures the plugin resolves without
+        // reintroducing Fabric modules to the project itself.
+        maven("https://maven.fabricmc.net/")
+
         // Stonecutter
         maven("https://maven.kikugie.dev/releases")
-        maven("https://maven.kikugie.dev/snapshots")
-
-        // Modstitch
-        maven("https://maven.isxander.dev/releases")
     }
 }
 
