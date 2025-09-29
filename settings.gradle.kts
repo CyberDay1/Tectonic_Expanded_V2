@@ -6,7 +6,7 @@ pluginManagement {
         // Modstitch
         maven("https://maven.isxander.dev/releases/")
 
-        // Loom platform
+        // Loom platform (required for Modstitch dependencies)
         maven("https://maven.fabricmc.net/")
 
         // MDG platform
@@ -32,21 +32,19 @@ stonecutter {
     create(rootProject) {
         /**
          * @param mcVersion The base minecraft version.
-         * @param loaders A list of loaders to target, supports "fabric" (1.14+), "neoforge"(1.20.6+), "vanilla"(any) or "forge"(<=1.20.1)
+         * @param loaders A list of loaders to target, supports "neoforge"(1.20.6+), "fabric" (1.14+), "vanilla"(any) or "forge" (<=1.20.1)
          */
         fun mc(mcVersion: String, name: String = mcVersion, loaders: Iterable<String>) =
             loaders.forEach { vers("$name-$it", mcVersion) }
 
         // Configure your targets here!
-        mc("1.21.5", loaders = listOf("fabric", "neoforge"))
-        mc("1.21.1", loaders = listOf("fabric", "neoforge"))
-        mc("1.20.1", loaders = listOf("fabric"))
+        mc("1.21.5", loaders = listOf("neoforge"))
+        mc("1.21.1", loaders = listOf("neoforge"))
 
         // This is the default target.
         // https://stonecutter.kikugie.dev/stonecutter/guide/setup#settings-settings-gradle-kts
-        vcsVersion = "1.21.5-fabric"
+        vcsVersion = "1.21.5-neoforge"
     }
 }
 
 rootProject.name = "the-expanse"
-
