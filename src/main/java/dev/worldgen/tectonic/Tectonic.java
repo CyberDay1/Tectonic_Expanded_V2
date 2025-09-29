@@ -22,6 +22,12 @@ public class Tectonic {
      */
     public static int BLENDING_VERSION = 1;
     public static String BLENDING_KEY = "tectonic:blending_version";
+    public static final int OVERWORLD_MIN_Y = -256; // CUSTOM: extended vertical range
+    public static final int OVERWORLD_HEIGHT = 2000; // CUSTOM: extended vertical range
+    public static final int OVERWORLD_MAX_Y = OVERWORLD_MIN_Y + OVERWORLD_HEIGHT - 1; // CUSTOM: extended vertical range
+    public static final int OVERWORLD_MIN_SECTION = OVERWORLD_MIN_Y / 16; // CUSTOM: extended vertical range
+    public static final int OVERWORLD_MAX_SECTION = OVERWORLD_MAX_Y / 16; // CUSTOM: extended vertical range
+    public static final ResourceLocation WIDE_LONG_RAVINE = id("wide_long_ravine"); // CUSTOM: custom ravine carver
 
     public static void init(Path folder) {
         ConfigHandler.load(folder.resolve("tectonic.json"));
