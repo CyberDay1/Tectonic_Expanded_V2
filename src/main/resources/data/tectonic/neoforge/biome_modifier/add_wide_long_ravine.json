@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_carvers",
+  "biomes": "#minecraft:is_overworld",
+  "carvers": "tectonic:wide_long_ravine",
+  "step": "air"
+}

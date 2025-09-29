@@ -1,8 +1,13 @@
 import org.apache.commons.lang3.StringUtils
+import org.gradle.jvm.toolchain.JavaLanguageVersion
 
 plugins {
     id("dev.isxander.modstitch.base") version "0.5.15-unstable"
     id("dev.isxander.modstitch.publishing") version "0.5.15-unstable"
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }
 
 fun prop(name: String, consumer: (prop: String) -> Unit) {
