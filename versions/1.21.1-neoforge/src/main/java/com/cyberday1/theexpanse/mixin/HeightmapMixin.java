@@ -14,16 +14,16 @@ public abstract class HeightmapMixin {
     private static int theexpanse$extendHeightmapTop(ChunkAccess chunkAccess) {
         int vanillaTop = chunkAccess.getHighestSectionPosition();
         int customTop = WorldgenConstants.OVERWORLD_MAX_Y + 1;
-        if (chunkAccess.getHeight() == WorldgenConstants.OVERWORLD_HEIGHT && chunkAccess.getMinBuildHeight() == WorldgenConstants.OVERWORLD_MIN_Y) {
+        if (chunkAccess.getHeight() == WorldgenConstants.OVERWORLD_HEIGHT && chunkAccess.getMinY() == WorldgenConstants.OVERWORLD_MIN_Y) {
             return Math.max(vanillaTop, customTop);
         }
         return vanillaTop;
     }
 
     // CUSTOM: extended vertical range (heightmap)
-    @Redirect(method = "primeHeightmaps", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/ChunkAccess;getMinBuildHeight()I"))
+    @Redirect(method = "primeHeightmaps", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/ChunkAccess;getMinY()I"))
     private static int theexpanse$extendHeightmapBottomPrime(ChunkAccess chunkAccess) {
-        int vanillaMin = chunkAccess.getMinBuildHeight();
+        int vanillaMin = chunkAccess.getMinY();
         if (chunkAccess.getHeight() == WorldgenConstants.OVERWORLD_HEIGHT && vanillaMin > WorldgenConstants.OVERWORLD_MIN_Y) {
             return WorldgenConstants.OVERWORLD_MIN_Y;
         }
@@ -31,9 +31,9 @@ public abstract class HeightmapMixin {
     }
 
     // CUSTOM: extended vertical range (heightmap)
-    @Redirect(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/ChunkAccess;getMinBuildHeight()I"))
+    @Redirect(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/ChunkAccess;getMinY()I"))
     private int theexpanse$extendHeightmapBottomUpdate(ChunkAccess chunkAccess) {
-        int vanillaMin = chunkAccess.getMinBuildHeight();
+        int vanillaMin = chunkAccess.getMinY();
         if (chunkAccess.getHeight() == WorldgenConstants.OVERWORLD_HEIGHT && vanillaMin > WorldgenConstants.OVERWORLD_MIN_Y) {
             return WorldgenConstants.OVERWORLD_MIN_Y;
         }

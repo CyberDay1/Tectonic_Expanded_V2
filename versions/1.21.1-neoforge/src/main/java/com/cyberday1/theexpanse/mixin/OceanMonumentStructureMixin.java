@@ -1,7 +1,7 @@
 package com.cyberday1.theexpanse.mixin;
 
 import com.cyberday1.theexpanse.world.WorldgenConstants;
-import net.minecraft.world.level.levelgen.structure.StructurePiecesBuilder;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 import net.minecraft.world.level.levelgen.structure.Structure.GenerationContext;
 import net.minecraft.world.level.levelgen.structure.structures.OceanMonumentStructure;
 import org.spongepowered.asm.mixin.Mixin;
