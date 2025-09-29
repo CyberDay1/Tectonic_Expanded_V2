@@ -45,8 +45,8 @@ public class ChunkSerializerMixin {
                 min = Math.min(y, min);
                 max = Math.max(y, max);
             }
-            min = Math.min(min, -4);
-            max = Math.max(max, 20);
+            min = Math.min(min, Tectonic.OVERWORLD_MIN_SECTION); // CUSTOM: extended vertical range
+            max = Math.max(max, Tectonic.OVERWORLD_MAX_SECTION); // CUSTOM: extended vertical range
             CompoundTag blendingData = new CompoundTag();
             blendingData.putInt("min_section", min);
             blendingData.putInt("max_section", max);

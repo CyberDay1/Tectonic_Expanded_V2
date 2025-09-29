@@ -5,8 +5,8 @@
   "noise": {
     "size_horizontal": 1,
     "size_vertical": 2,
-    "min_y": -2032,
-    "height": 4064
+    "min_y": -256,
+    "height": 2000
   },
   "sea_level": 63,
   "disable_mob_generation": false,
