@@ -1,0 +1,58 @@
+name: Build
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Cache Gradle (NeoForge 1.21.1)
+        id: cache-gradle-1211
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/gradle.properties','**/build.gradle*') }}-neoform-1.21.1-20240808.144430
+
+      - name: Create Minecraft Artifacts (1.21.1)
+        run: ./gradlew :1.21.1-neoforge:createMinecraftArtifacts --no-daemon --console=plain
+
+      - name: Cache Gradle (NeoForge 1.21.5)
+        id: cache-gradle-1215
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/gradle.properties','**/build.gradle*') }}-neoform-1.21.5-20250325.162830
+
+      - name: Create Minecraft Artifacts (1.21.5)
+        run: ./gradlew :1.21.5-neoforge:createMinecraftArtifacts --no-daemon --console=plain
+
+      - name: Build
+        run: ./gradlew build --no-daemon --console=plain
+
+      - name: Upload 1.21.1 NeoForge jars
+        uses: actions/upload-artifact@v4
+        with:
+          name: TectonicExpanded-1.21.1-neoforge
+          path: versions/1.21.1-neoforge/build/libs/**
+
+      - name: Upload 1.21.5 NeoForge jars
+        uses: actions/upload-artifact@v4
+        with:
+          name: TectonicExpanded-1.21.5-neoforge
+          path: versions/1.21.5-neoforge/build/libs/**
