@@ -1,5 +1,7 @@
 import org.apache.commons.lang3.StringUtils
 import org.gradle.api.file.DuplicatesStrategy
+import org.gradle.api.tasks.bundling.Zip
+import org.gradle.jvm.tasks.Jar
 import org.gradle.language.jvm.tasks.ProcessResources
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 
@@ -9,7 +11,9 @@ plugins {
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
 }
 
 fun prop(name: String, consumer: (prop: String) -> Unit) {
@@ -18,6 +22,7 @@ fun prop(name: String, consumer: (prop: String) -> Unit) {
 }
 
 val modVersion = "${property("mod_version")}"
+version = modVersion
 val minecraft = property("deps.minecraft") as String
 
 val loader = when {
@@ -116,7 +121,16 @@ dependencies {
     //modstitchModImplementation("maven.modrinth:clifftree:${property("deps.clifftree")}")
 }
 
-tasks.named("createMinecraftArtifacts") {
+configurations.configureEach {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "org.ow2.asm" && requested.name == "asm") {
+            useVersion("9.7")
+            because("Align ASM dependency versions for NeoForge tooling")
+        }
+    }
+}
+
+tasks.matching { it.name == "createMinecraftArtifacts" }.configureEach {
     outputs.cacheIf { true }
 }
 
@@ -127,8 +141,46 @@ tasks {
 }
 
 if (name == "1.21.1-neoforge" || name == "1.21.5-neoforge") {
+    val mcVersion = property("deps.minecraft") as String
+
+    group = "com.cyberday1"
+    version = "2.0.0+mc${mcVersion}-neoforge"
+
     tasks.withType<ProcessResources>().configureEach {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+
+    tasks.named<Jar>("jar") {
+        archiveBaseName.set("TectonicExpanded")
+        archiveVersion.set("2.0.0+mc${mcVersion}-neoforge")
+    }
+
+    tasks.register("sanityCompile") {
+        dependsOn("compileJava")
+    }
+}
+
+if (name == "1.21.5-neoforge") {
+    val targets = listOf(":1.21.1-neoforge", ":1.21.5-neoforge")
+
+    tasks.register("distZipAll", Zip::class) {
+        archiveBaseName.set("TectonicExpanded")
+        archiveVersion.set(version.toString())
+        destinationDirectory.set(rootProject.layout.buildDirectory.dir("dist"))
+        dependsOn(targets.map { "$it:build" })
+
+        targets.forEach { path ->
+            from(project(path).layout.buildDirectory.dir("libs")) {
+                include("*.jar")
+            }
+        }
+
+        from(rootProject.layout.projectDirectory.file("LICENSE"))
+        into("/")
+    }
+
+    tasks.named("build") {
+        finalizedBy("distZipAll")
     }
 }
 

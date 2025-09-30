@@ -23,6 +23,12 @@ plugins {
     id("dev.kikugie.stonecutter") version "0.6+"
 }
 
+buildCache {
+    local {
+        isEnabled = true
+    }
+}
+
 stonecutter {
     kotlinController = true
     centralScript = "build.gradle.kts"

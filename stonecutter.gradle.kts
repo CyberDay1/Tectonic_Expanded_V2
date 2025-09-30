@@ -15,3 +15,7 @@ allprojects {
         maven("https://maven.neoforged.net/releases")
     }
 }
+
+tasks.register("distZipAll") {
+    dependsOn(":1.21.5-neoforge:distZipAll")
+}
