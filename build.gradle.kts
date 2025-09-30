@@ -1,4 +1,5 @@
 import org.apache.commons.lang3.StringUtils
+import org.gradle.api.GradleException
 import org.gradle.api.JavaVersion
 import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.tasks.bundling.Zip
@@ -156,6 +157,24 @@ tasks {
     modstitch.finalJarTask {
         archiveVersion.set("${modVersion}+mc${minecraft}-neoforge")
     }
+}
+
+val validateMixinCompatLevels = tasks.register("validateMixinCompatLevels") {
+    doLast {
+        fileTree(".") {
+            include("**/*.mixins.json")
+            exclude("**/build/**")
+        }.forEach { f ->
+            val text = f.readText()
+            if (text.contains("\"JAVA_17\"") || text.contains("\"JAVA_18\"")) {
+                throw GradleException("Invalid mixin compat level in $f. Must be JAVA_21")
+            }
+        }
+    }
+}
+
+tasks.named("build") {
+    dependsOn(validateMixinCompatLevels)
 }
 
 tasks.register("validateModVersion") {
