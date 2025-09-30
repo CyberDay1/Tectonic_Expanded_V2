@@ -129,8 +129,15 @@ stonecutter {
     )
 }
 
+repositories {
+    mavenCentral()
+    maven { url = uri("https://maven.neoforged.net/releases") }
+    maven { url = uri("https://maven.parchmentmc.org") }
+    maven { url = uri("https://jitpack.io") } // Added for MixinExtras
+}
+
 // All dependencies should be specified through modstitch's proxy configuration.
-// Wondering where the "repositories" block is? Go to "stonecutter.gradle.kts"
+// Repositories are mirrored in stonecutter.gradle.kts for version-specific builds.
 // If you want to create proxy configurations for more source sets, such as client source sets,
 // use the modstitch.createProxyConfigurations(sourceSets["client"]) function.
 dependencies {
@@ -140,7 +147,7 @@ dependencies {
         }
         because("NeoForge bundles Sponge Mixin; force Java 21 compatible version")
     }
-    implementation("com.llamalad7:MixinExtras:0.5.0") {
+    implementation("com.github.LlamaLad7:MixinExtras:0.5.0") {
         because("Needed for @WrapOperation and other extensions")
     }
 
@@ -183,8 +190,21 @@ tasks.register("validateMixinCompatLevel") {
     }
 }
 
+val validateMixinExtrasCoords = tasks.register("validateMixinExtrasCoords") {
+    doLast {
+        val compileClasspath = configurations.getByName("compileClasspath")
+        val badDeps = compileClasspath.resolvedConfiguration.resolvedArtifacts.filter {
+            it.moduleVersion.id.group == "com.llamalad7" && it.name == "MixinExtras"
+        }
+        if (badDeps.isNotEmpty()) {
+            throw GradleException("Invalid MixinExtras coordinates detected! Use com.github.LlamaLad7:MixinExtras instead.")
+        }
+    }
+}
+
 tasks.named("build") {
     dependsOn("validateMixinCompatLevel")
+    dependsOn(validateMixinExtrasCoords)
     dependsOn(validateNoLithoImports)
 }
 
