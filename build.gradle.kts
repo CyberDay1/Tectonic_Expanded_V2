@@ -134,8 +134,15 @@ stonecutter {
 // If you want to create proxy configurations for more source sets, such as client source sets,
 // use the modstitch.createProxyConfigurations(sourceSets["client"]) function.
 dependencies {
-    implementation("net.neoforged:sponge-mixin:0.15.3+mixin.0.8.9")
-    implementation("com.llamalad7:MixinExtras-neoforge:0.5.0")
+    implementation("org.spongepowered:mixin:0.8.5") {
+        version {
+            strictly("0.8.5")
+        }
+        because("NeoForge bundles Sponge Mixin; force Java 21 compatible version")
+    }
+    implementation("com.llamalad7:MixinExtras:0.5.0") {
+        because("Needed for @WrapOperation and other extensions")
+    }
 
     //modstitchModImplementation("maven.modrinth:terralith:${property("deps.terralith")}")
     //modstitchModImplementation("maven.modrinth:clifftree:${property("deps.clifftree")}")
