@@ -183,6 +183,17 @@ tasks.register("validateModVersion") {
     }
 }
 
+tasks.register("validateMixinPaths") {
+    doLast {
+        fileTree("versions").matching { include("**/*.mixins.json") }.forEach { f ->
+            val text = f.readText()
+            if (text.contains("dev.worldgen")) {
+                throw GradleException("Invalid mixin path found in $f: contains 'dev.worldgen'")
+            }
+        }
+    }
+}
+
 if (name == "1.21.1-neoforge" || name == "1.21.5-neoforge") {
     val mcVersion = property("deps.minecraft") as String
 
@@ -268,4 +279,5 @@ publishMods {
 
 tasks.named("build") {
     dependsOn("validateModVersion")
+    dependsOn("validateMixinPaths")
 }
