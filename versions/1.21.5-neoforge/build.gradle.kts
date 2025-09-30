@@ -11,6 +11,10 @@ neoForge {
     neoFormVersion = "1.21.5-20250325.162830"
 }
 
+dependencies {
+    implementation("com.github.LlamaLad7:MixinExtras:73e5b74")
+}
+
 tasks.named<Jar>("jar") {
     archiveBaseName.set("TectonicExpanded")
     archiveVersion.set("${modVersion}+mc${mcVersion}-neoforge")
