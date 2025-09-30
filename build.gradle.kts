@@ -134,8 +134,16 @@ stonecutter {
 // If you want to create proxy configurations for more source sets, such as client source sets,
 // use the modstitch.createProxyConfigurations(sourceSets["client"]) function.
 dependencies {
+    implementation("net.neoforged:sponge-mixin:0.15.3+mixin.0.8.9")
+    implementation("com.llamalad7:MixinExtras-neoforge:0.5.0")
+
     //modstitchModImplementation("maven.modrinth:terralith:${property("deps.terralith")}")
     //modstitchModImplementation("maven.modrinth:clifftree:${property("deps.clifftree")}")
+}
+
+configurations.all {
+    exclude(group = "net.fabricmc", module = "sponge-mixin")
+    exclude(group = "org.spongepowered", module = "mixin")
 }
 
 configurations.configureEach {
@@ -157,22 +165,19 @@ tasks {
     }
 }
 
-val validateMixinCompatLevels = tasks.register("validateMixinCompatLevels") {
+tasks.register("validateMixinCompatLevel") {
     doLast {
-        fileTree(".") {
-            include("**/*.mixins.json")
-            exclude("**/build/**")
-        }.forEach { f ->
+        fileTree("src/main/resources").matching { include("**/mixins.*.json") }.forEach { f ->
             val text = f.readText()
-            if (text.contains("\"JAVA_17\"") || text.contains("\"JAVA_18\"")) {
-                throw GradleException("Invalid mixin compat level in $f. Must be JAVA_21")
+            if (text.contains("JAVA_18") || text.contains("JAVA_17")) {
+                throw GradleException("Outdated mixin compat level found in ${f.name}. Must be JAVA_21.")
             }
         }
     }
 }
 
 tasks.named("build") {
-    dependsOn(validateMixinCompatLevels)
+    dependsOn("validateMixinCompatLevel")
     dependsOn(validateNoLithoImports)
 }
 
@@ -245,7 +250,7 @@ tasks.register("validateMixinCompat") {
             exclude("**/build/**")
         }.files.forEach { f ->
             val text = f.readText()
-            if (text.contains("\"JAVA_17\"")) {
+            if (text.contains("\"JAVA_17\"") || text.contains("\"JAVA_18\"")) {
                 throw GradleException("Invalid mixin compatibility level found in $f: must use JAVA_21")
             }
         }
