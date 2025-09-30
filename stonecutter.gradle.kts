@@ -11,8 +11,17 @@ stonecutter registerChiseled tasks.register("chiseledBuild", stonecutter.chisele
 allprojects {
     repositories {
         mavenCentral()
+        maven {
+            url = uri("https://maven.neoforged.net/releases")
+        }
+        maven {
+            url = uri("https://maven.parchmentmc.org")
+        }
+        maven {
+            url = uri("https://jitpack.io")
+            // fallback for MixinExtras
+        }
         mavenLocal()
-        maven("https://maven.neoforged.net/releases")
     }
 }
 
