@@ -10,8 +10,15 @@ plugins {
     id("dev.isxander.modstitch.publishing") version "0.5.15-unstable"
 }
 
+val modVersionProperty = project.property("mod_version") as String
+val minecraftVersionProperty = project.property("minecraft_version") as String
+
 group = "com.cyberday1"
-version = "2.0.0"
+version = "${modVersionProperty}+mc${minecraftVersionProperty}-neoforge"
+
+base {
+    archivesName.set("TectonicExpanded")
+}
 
 java {
     toolchain {
@@ -24,12 +31,12 @@ fun prop(name: String, consumer: (prop: String) -> Unit) {
         ?.let(consumer)
 }
 
-val declaredModVersion = property("mod_version") as String
-require(declaredModVersion == version) {
-    "Root project version ($version) does not match mod_version property ($declaredModVersion)."
+val declaredModVersion = modVersionProperty
+require(version.toString().startsWith("$declaredModVersion+")) {
+    "Root project version ($version) must begin with the mod_version property ($declaredModVersion)."
 }
 
-val modVersion = version.toString()
+val modVersion = declaredModVersion
 val minecraft = property("deps.minecraft") as String
 
 val loader = when {
@@ -143,7 +150,7 @@ tasks.matching { it.name == "createMinecraftArtifacts" }.configureEach {
 
 tasks {
     modstitch.finalJarTask {
-        archiveVersion.set("$modVersion-$loader-$minecraft")
+        archiveVersion.set("${modVersion}+mc${minecraft}-neoforge")
     }
 }
 
@@ -151,7 +158,7 @@ if (name == "1.21.1-neoforge" || name == "1.21.5-neoforge") {
     val mcVersion = property("deps.minecraft") as String
 
     group = "com.cyberday1"
-    version = "2.0.0+mc${mcVersion}-neoforge"
+    version = "${modVersionProperty}+mc${mcVersion}-neoforge"
 
     tasks.withType<ProcessResources>().configureEach {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
@@ -159,7 +166,7 @@ if (name == "1.21.1-neoforge" || name == "1.21.5-neoforge") {
 
     tasks.named<Jar>("jar") {
         archiveBaseName.set("TectonicExpanded")
-        archiveVersion.set("2.0.0+mc${mcVersion}-neoforge")
+        archiveVersion.set("${modVersionProperty}+mc${mcVersion}-neoforge")
     }
 
     tasks.register("sanityCompile") {
