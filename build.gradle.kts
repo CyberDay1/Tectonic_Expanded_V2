@@ -4,6 +4,7 @@ import org.gradle.api.tasks.bundling.Zip
 import org.gradle.jvm.tasks.Jar
 import org.gradle.language.jvm.tasks.ProcessResources
 import org.gradle.jvm.toolchain.JavaLanguageVersion
+import java.util.Properties
 
 plugins {
     id("dev.isxander.modstitch.base") version "0.5.15-unstable"
@@ -154,6 +155,28 @@ tasks {
     }
 }
 
+tasks.register("validateModVersion") {
+    doLast {
+        val props = Properties()
+        file("gradle.properties").inputStream().use { props.load(it) }
+        val expected = props.getProperty("mod_version")?.trim()
+
+        val modsToml = file("versions/1.21.1-neoforge/src/main/resources/META-INF/neoforge.mods.toml")
+        if (modsToml.exists()) {
+            val actual = modsToml.readLines()
+                .find { it.trim().startsWith("version=") }
+                ?.replace("version=", "")
+                ?.replace("\"", "")
+                ?.replace("\${'$'}{mod_version}", expected ?: "")
+                ?.trim()
+
+            if (actual != expected) {
+                throw GradleException("Version mismatch: gradle.properties has '$expected' but neoforge.mods.toml has '$actual'")
+            }
+        }
+    }
+}
+
 if (name == "1.21.1-neoforge" || name == "1.21.5-neoforge") {
     val mcVersion = property("deps.minecraft") as String
 
@@ -232,4 +255,8 @@ publishMods {
         optional("worldgen-patches")
         incompatible("continents")
     }
+}
+
+tasks.named("build") {
+    dependsOn("validateModVersion")
 }
