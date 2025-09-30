@@ -12,7 +12,11 @@ neoForge {
 }
 
 dependencies {
-    implementation("com.github.LlamaLad7:MixinExtras:73e5b74")
+    implementation("org.spongepowered:mixin:0.8.5")
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.github.zafarkhaja:java-semver:0.10.2")
+    implementation("org.apache.commons:commons-lang3:3.14.0")
+    implementation("org.antlr:antlr4-runtime:4.13.1")
 }
 
 tasks.named<Jar>("jar") {

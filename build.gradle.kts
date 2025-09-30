@@ -147,9 +147,10 @@ dependencies {
         }
         because("NeoForge bundles Sponge Mixin; force Java 21 compatible version")
     }
-    implementation("com.github.LlamaLad7:MixinExtras:73e5b74") {
-        because("Needed for @WrapOperation and other extensions")
-    }
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.github.zafarkhaja:java-semver:0.10.2")
+    implementation("org.apache.commons:commons-lang3:3.14.0")
+    implementation("org.antlr:antlr4-runtime:4.13.1")
 
     //modstitchModImplementation("maven.modrinth:terralith:${property("deps.terralith")}")
     //modstitchModImplementation("maven.modrinth:clifftree:${property("deps.clifftree")}")
@@ -157,7 +158,6 @@ dependencies {
 
 configurations.all {
     exclude(group = "net.fabricmc", module = "sponge-mixin")
-    exclude(group = "org.spongepowered", module = "mixin")
 }
 
 configurations.configureEach {
@@ -190,24 +190,8 @@ tasks.register("validateMixinCompatLevel") {
     }
 }
 
-val validateMixinExtrasCoords = tasks.register("validateMixinExtrasCoords") {
-    doLast {
-        val allowedVersions = setOf("73e5b74")
-        val compileClasspath = configurations.getByName("compileClasspath")
-        val badDeps = compileClasspath.resolvedConfiguration.resolvedArtifacts.filter {
-            val moduleVersion = it.moduleVersion.id
-            moduleVersion.group == "com.llamalad7" ||
-                (moduleVersion.group == "com.github.LlamaLad7" && moduleVersion.version !in allowedVersions)
-        }
-        if (badDeps.isNotEmpty()) {
-            throw GradleException("Invalid MixinExtras coordinates detected. Allowed: com.github.LlamaLad7:MixinExtras:73e5b74 only.")
-        }
-    }
-}
-
 tasks.named("build") {
     dependsOn("validateMixinCompatLevel")
-    dependsOn(validateMixinExtrasCoords)
     dependsOn(validateNoLithoImports)
 }
 
