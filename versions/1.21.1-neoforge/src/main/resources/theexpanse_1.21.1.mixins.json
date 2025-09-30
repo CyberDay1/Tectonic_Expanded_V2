@@ -7,10 +7,10 @@
   },
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "com.cyberday1.theexpanse.mixin.HeightmapMixin",
-    "com.cyberday1.theexpanse.mixin.LevelHeightAccessorMixin",
-    "com.cyberday1.theexpanse.mixin.StrongholdStructureMixin",
-    "com.cyberday1.theexpanse.mixin.OceanMonumentStructureMixin",
-    "com.cyberday1.theexpanse.mixin.MineshaftStructureMixin"
+    "HeightmapMixin",
+    "LevelHeightAccessorMixin",
+    "StrongholdStructureMixin",
+    "OceanMonumentStructureMixin",
+    "MineshaftStructureMixin"
   ]
 }
