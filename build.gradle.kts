@@ -116,6 +116,10 @@ dependencies {
     //modstitchModImplementation("maven.modrinth:clifftree:${property("deps.clifftree")}")
 }
 
+tasks.named("createMinecraftArtifacts") {
+    outputs.cacheIf { true }
+}
+
 tasks {
     modstitch.finalJarTask {
         archiveVersion.set("$modVersion-$loader-$minecraft")
