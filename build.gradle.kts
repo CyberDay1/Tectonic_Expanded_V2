@@ -1,4 +1,6 @@
 import org.apache.commons.lang3.StringUtils
+import org.gradle.api.file.DuplicatesStrategy
+import org.gradle.language.jvm.tasks.ProcessResources
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 
 plugins {
@@ -117,6 +119,12 @@ dependencies {
 tasks {
     modstitch.finalJarTask {
         archiveVersion.set("$modVersion-$loader-$minecraft")
+    }
+}
+
+if (name == "1.21.1-neoforge" || name == "1.21.5-neoforge") {
+    tasks.withType<ProcessResources>().configureEach {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
 }
 
