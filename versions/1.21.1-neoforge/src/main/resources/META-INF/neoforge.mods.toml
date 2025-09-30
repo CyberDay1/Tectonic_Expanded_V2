@@ -7,23 +7,23 @@ license = "MIT"
     modId = "theexpanse"
     version = "${mod_version}"
     displayName = "The Expanse"
-    description = '''Terrain shaping brought to new heights, grander and more varied than ever before. Welcome to The Expanse.'''
+    description = "Terrain shaping brought to new heights, grander and more varied than ever before. Welcome to The Expanse."
     authors = "Apollo (Developer), HB Stratos (Contributor), DawnKiro (Contributor), Uni (Contributor)"
     logoFile = "pack.png"
 
-[[dependencies.${mod_id}]]
+[[dependencies.theexpanse]]
     modId = "neoforge"
     type = "required"
     versionRange = "[21.1.0,)"
     ordering = "NONE"
     side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.theexpanse]]
     modId = "minecraft"
     type = "required"
     versionRange = "[1.21.1,1.21.2)"
 
-[[dependencies.${mod_id}]]
+[[dependencies.theexpanse]]
     modId = "lithostitched"
     type = "required"
     ordering = "NONE"
