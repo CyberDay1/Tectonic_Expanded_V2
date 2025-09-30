@@ -10,6 +10,9 @@ plugins {
     id("dev.isxander.modstitch.publishing") version "0.5.15-unstable"
 }
 
+group = "com.cyberday1"
+version = "2.0.0"
+
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(21))
@@ -21,8 +24,12 @@ fun prop(name: String, consumer: (prop: String) -> Unit) {
         ?.let(consumer)
 }
 
-val modVersion = "${property("mod_version")}"
-version = modVersion
+val declaredModVersion = property("mod_version") as String
+require(declaredModVersion == version) {
+    "Root project version ($version) does not match mod_version property ($declaredModVersion)."
+}
+
+val modVersion = version.toString()
 val minecraft = property("deps.minecraft") as String
 
 val loader = when {
