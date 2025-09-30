@@ -29,6 +29,9 @@ jobs:
             ~/.gradle/wrapper
           key: gradle-${{ runner.os }}-${{ hashFiles('**/gradle.properties','**/build.gradle*') }}-neoform-1.21.1-20240808.144430
 
+      - name: Validate Java and mixin compatibility
+        run: ./gradlew validateJavaCompat validateMixinCompat --no-daemon --console=plain
+
       - name: Create Minecraft Artifacts (1.21.1)
         run: ./gradlew :1.21.1-neoforge:createMinecraftArtifacts --no-daemon --console=plain
 
@@ -74,6 +77,8 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: gradle-${{ runner.os }}-${{ hashFiles('**/gradle.properties','**/build.gradle*') }}
+      - name: Validate Java and mixin compatibility
+        run: ./gradlew validateJavaCompat validateMixinCompat --no-daemon --console=plain
       - run: ./gradlew :1.21.1-neoforge:createMinecraftArtifacts :1.21.5-neoforge:createMinecraftArtifacts --no-daemon --console=plain
       - run: ./gradlew build --no-daemon --console=plain
       - name: Upload Release

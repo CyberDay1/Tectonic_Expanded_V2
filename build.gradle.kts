@@ -1,4 +1,5 @@
 import org.apache.commons.lang3.StringUtils
+import org.gradle.api.JavaVersion
 import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.tasks.bundling.Zip
 import org.gradle.jvm.tasks.Jar
@@ -25,6 +26,8 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(21))
     }
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 fun prop(name: String, consumer: (prop: String) -> Unit) {
@@ -194,11 +197,41 @@ tasks.register("validateMixinPaths") {
     }
 }
 
+tasks.register("validateJavaCompat") {
+    doLast {
+        if (JavaVersion.current() != JavaVersion.VERSION_21) {
+            throw GradleException("Build must run on Java 21. Current: ${JavaVersion.current()}")
+        }
+    }
+}
+
+tasks.register("validateMixinCompat") {
+    doLast {
+        fileTree(projectDir).matching {
+            include("**/*.mixins.json")
+            exclude("**/build/**")
+        }.files.forEach { f ->
+            val text = f.readText()
+            if (text.contains("\"JAVA_17\"")) {
+                throw GradleException("Invalid mixin compatibility level found in $f: must use JAVA_21")
+            }
+        }
+    }
+}
+
 if (name == "1.21.1-neoforge" || name == "1.21.5-neoforge") {
     val mcVersion = property("deps.minecraft") as String
 
     group = "com.cyberday1"
     version = "${modVersion}+mc${mcVersion}-neoforge"
+
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(21))
+        }
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
 
     tasks.withType<ProcessResources>().configureEach {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
@@ -280,4 +313,6 @@ publishMods {
 tasks.named("build") {
     dependsOn("validateModVersion")
     dependsOn("validateMixinPaths")
+    dependsOn("validateJavaCompat")
+    dependsOn("validateMixinCompat")
 }
