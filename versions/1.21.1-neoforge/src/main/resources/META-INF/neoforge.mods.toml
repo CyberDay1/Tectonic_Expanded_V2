@@ -4,26 +4,26 @@ issueTrackerURL = "https://github.com/CyberDay1/TheExpanse/issues"
 license = "MIT"
 
 [[mods]]
-    modId = "theexpanse"
-    version = "${mod_version}"
-    displayName = "The Expanse"
-    description = "Terrain shaping brought to new heights, grander and more varied than ever before. Welcome to The Expanse."
-    authors = "Apollo (Developer), HB Stratos (Contributor), DawnKiro (Contributor), Uni (Contributor)"
-    logoFile = "pack.png"
+    modId="tectonicexpanded"
+    version="${mod_version}"
+    displayName="Tectonic Expanded"
+    description="Expanded tectonic worldgen"
+    authors="CyberDay1"
+    logoFile="pack.png"
 
-[[dependencies.theexpanse]]
+[[dependencies.tectonicexpanded]]
     modId = "neoforge"
     type = "required"
     versionRange = "[21.1.0,)"
     ordering = "NONE"
     side = "BOTH"
 
-[[dependencies.theexpanse]]
+[[dependencies.tectonicexpanded]]
     modId = "minecraft"
     type = "required"
     versionRange = "[1.21.1,1.21.2)"
 
-[[dependencies.theexpanse]]
+[[dependencies.tectonicexpanded]]
     modId = "lithostitched"
     type = "required"
     ordering = "NONE"
