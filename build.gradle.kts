@@ -147,7 +147,7 @@ dependencies {
         }
         because("NeoForge bundles Sponge Mixin; force Java 21 compatible version")
     }
-    implementation("com.github.LlamaLad7:MixinExtras:0.5.0") {
+    implementation("com.github.LlamaLad7:MixinExtras:0.4.1") {
         because("Needed for @WrapOperation and other extensions")
     }
 
@@ -190,14 +190,25 @@ tasks.register("validateMixinCompatLevel") {
     }
 }
 
+val allowedMixinExtrasVersions = setOf(
+    "0.4.1",
+    "73e5b74a55e7de77b084c5a4230eac0c5937c547"
+)
+
 val validateMixinExtrasCoords = tasks.register("validateMixinExtrasCoords") {
     doLast {
         val compileClasspath = configurations.getByName("compileClasspath")
         val badDeps = compileClasspath.resolvedConfiguration.resolvedArtifacts.filter {
-            it.moduleVersion.id.group == "com.llamalad7" && it.name == "MixinExtras"
+            val moduleVersion = it.moduleVersion.id
+            val isMixinExtras = moduleVersion.name == "MixinExtras"
+            val isLegacyGroup = moduleVersion.group == "com.llamalad7" && isMixinExtras
+            val hasDisallowedVersion = moduleVersion.group == "com.github.LlamaLad7" &&
+                isMixinExtras && moduleVersion.version !in allowedMixinExtrasVersions
+
+            isLegacyGroup || hasDisallowedVersion
         }
         if (badDeps.isNotEmpty()) {
-            throw GradleException("Invalid MixinExtras coordinates detected! Use com.github.LlamaLad7:MixinExtras instead.")
+            throw GradleException("Invalid MixinExtras coordinates or version detected. Allowed: com.github.LlamaLad7:MixinExtras:0.4.1 or a pinned commit id.")
         }
     }
 }
