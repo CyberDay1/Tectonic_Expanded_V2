@@ -11,11 +11,11 @@ plugins {
     id("dev.isxander.modstitch.publishing") version "0.5.15-unstable"
 }
 
-val modVersionProperty = project.property("mod_version") as String
+val cleanModVersion = project.findProperty("mod_version")?.toString() ?: "2.0.0"
 val minecraftVersionProperty = project.property("minecraft_version") as String
 
 group = "com.cyberday1"
-version = "${modVersionProperty}+mc${minecraftVersionProperty}-neoforge"
+version = "${cleanModVersion}+mc${minecraftVersionProperty}-neoforge"
 
 base {
     archivesName.set("TectonicExpanded")
@@ -32,7 +32,7 @@ fun prop(name: String, consumer: (prop: String) -> Unit) {
         ?.let(consumer)
 }
 
-val declaredModVersion = modVersionProperty
+val declaredModVersion = cleanModVersion
 require(version.toString().startsWith("$declaredModVersion+")) {
     "Root project version ($version) must begin with the mod_version property ($declaredModVersion)."
 }
@@ -63,7 +63,7 @@ modstitch {
     metadata {
         modId = "theexpanse"
         modName = "The Expanse"
-        modVersion = "${property("mod_version")}"
+        modVersion = cleanModVersion
         modGroup = "com.cyberday1"
 
         fun <K, V> MapProperty<K, V>.populate(block: MapProperty<K, V>.() -> Unit) {
@@ -161,17 +161,23 @@ tasks.register("validateModVersion") {
         file("gradle.properties").inputStream().use { props.load(it) }
         val expected = props.getProperty("mod_version")?.trim()
 
-        val modsToml = file("versions/1.21.1-neoforge/src/main/resources/META-INF/neoforge.mods.toml")
-        if (modsToml.exists()) {
-            val actual = modsToml.readLines()
-                .find { it.trim().startsWith("version=") }
-                ?.replace("version=", "")
-                ?.replace("\"", "")
-                ?.replace("\${'$'}{mod_version}", expected ?: "")
-                ?.trim()
+        val modsTomlFiles = listOf(
+            "versions/1.21.1-neoforge/src/main/resources/META-INF/neoforge.mods.toml",
+            "versions/1.21.5-neoforge/src/main/resources/META-INF/neoforge.mods.toml"
+        )
 
-            if (actual != expected) {
-                throw GradleException("Version mismatch: gradle.properties has '$expected' but neoforge.mods.toml has '$actual'")
+        modsTomlFiles.forEach { path ->
+            val modsToml = file(path)
+            if (modsToml.exists()) {
+                val actual = modsToml.readLines()
+                    .firstOrNull { it.trim().startsWith("version=") }
+                    ?.substringAfter('=')
+                    ?.trim()
+                    ?.trim('"')
+
+                if (actual != expected) {
+                    throw GradleException("Version mismatch: gradle.properties has '$expected' but $path has '$actual'")
+                }
             }
         }
     }
@@ -181,15 +187,18 @@ if (name == "1.21.1-neoforge" || name == "1.21.5-neoforge") {
     val mcVersion = property("deps.minecraft") as String
 
     group = "com.cyberday1"
-    version = "${modVersionProperty}+mc${mcVersion}-neoforge"
+    version = "${modVersion}+mc${mcVersion}-neoforge"
 
     tasks.withType<ProcessResources>().configureEach {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        filesMatching("META-INF/neoforge.mods.toml") {
+            expand(mapOf("mod_version" to modVersion))
+        }
     }
 
     tasks.named<Jar>("jar") {
         archiveBaseName.set("TectonicExpanded")
-        archiveVersion.set("${modVersionProperty}+mc${mcVersion}-neoforge")
+        archiveVersion.set("${modVersion}+mc${mcVersion}-neoforge")
     }
 
     tasks.register("sanityCompile") {
@@ -228,7 +237,7 @@ publishMods {
     type = BETA
     modLoaders.add(loader)
     file = modstitch.finalJarTask.flatMap { it.archiveFile }
-    displayName = "v%s ~ %s %s".format(property("mod_version"), StringUtils.capitalize(loader), property("deps.minecraft"))
+    displayName = "v%s ~ %s %s".format(modVersion, StringUtils.capitalize(loader), property("deps.minecraft"))
 
     dryRun = false
 
