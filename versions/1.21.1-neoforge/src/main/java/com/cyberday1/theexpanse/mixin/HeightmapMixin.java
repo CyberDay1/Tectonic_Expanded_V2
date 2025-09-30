@@ -12,9 +12,9 @@ public abstract class HeightmapMixin {
     // CUSTOM: extended vertical range (heightmap)
     @Redirect(method = "primeHeightmaps", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/ChunkAccess;getHighestSectionPosition()I"))
     private static int theexpanse$extendHeightmapTop(ChunkAccess chunkAccess) {
-        int vanillaTop = chunkAccess.getHighestSectionPosition();
-        int customTop = WorldgenConstants.OVERWORLD_MAX_Y + 1;
         LevelHeightAccessorExtension accessor = (LevelHeightAccessorExtension) chunkAccess;
+        int vanillaTop = accessor.getMaxSectionY();
+        int customTop = WorldgenConstants.OVERWORLD_MAX_Y + 1;
         int minY = accessor.getMinY();
         if (theexpanse$shouldExtendTop(accessor, minY)) {
             return Math.max(vanillaTop, customTop);
