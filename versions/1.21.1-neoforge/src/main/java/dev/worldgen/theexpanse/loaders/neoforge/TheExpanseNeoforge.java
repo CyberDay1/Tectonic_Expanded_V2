@@ -1,6 +1,7 @@
 //? if neoforge {
 /*package dev.worldgen.theexpanse.loaders.neoforge;
 
+import com.cyberday1.theexpanse.litho.LithoRegistries;
 import com.mojang.serialization.MapCodec;
 import dev.worldgen.theexpanse.TheExpanse;
 import dev.worldgen.theexpanse.config.ConfigHandler;
@@ -38,6 +39,7 @@ public class TheExpanseNeoforge {
     public TheExpanseNeoforge(IEventBus bus) {
         TheExpanse.init(FMLPaths.CONFIGDIR.get());
 
+        LithoRegistries.init(bus);
         CONDITION_TYPES.register(bus);
 
         bus.addListener(this::registerDensityFunctionTypes);

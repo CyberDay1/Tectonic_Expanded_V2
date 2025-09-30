@@ -23,8 +23,3 @@ license = "MIT"
     type = "required"
     versionRange = "[1.21.1,1.21.2)"
 
-[[dependencies.tectonicexpanded]]
-    modId = "lithostitched"
-    type = "required"
-    ordering = "NONE"
-    side = "BOTH"
