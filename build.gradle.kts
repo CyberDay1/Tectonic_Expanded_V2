@@ -134,8 +134,6 @@ stonecutter {
 // If you want to create proxy configurations for more source sets, such as client source sets,
 // use the modstitch.createProxyConfigurations(sourceSets["client"]) function.
 dependencies {
-    modstitchModImplementation("maven.modrinth:lithostitched:${property("deps.lithostitched")}")
-
     //modstitchModImplementation("maven.modrinth:terralith:${property("deps.terralith")}")
     //modstitchModImplementation("maven.modrinth:clifftree:${property("deps.clifftree")}")
 }
@@ -175,6 +173,7 @@ val validateMixinCompatLevels = tasks.register("validateMixinCompatLevels") {
 
 tasks.named("build") {
     dependsOn(validateMixinCompatLevels)
+    dependsOn(validateNoLithoImports)
 }
 
 tasks.register("validateModVersion") {
@@ -213,6 +212,21 @@ tasks.register("validateMixinPaths") {
                 throw GradleException("Invalid mixin path found in $f: contains 'dev.worldgen'")
             }
         }
+    }
+}
+
+val validateNoLithoImports = tasks.register("validateNoLithoImports") {
+    doLast {
+        fun checkTree(root: String) {
+            fileTree(root).matching { include("**/*.java") }.forEach { file ->
+                if (file.readText().contains("net.lithostitched")) {
+                    throw GradleException("Unexpected net.lithostitched import in $file")
+                }
+            }
+        }
+
+        checkTree("src")
+        checkTree("versions")
     }
 }
 

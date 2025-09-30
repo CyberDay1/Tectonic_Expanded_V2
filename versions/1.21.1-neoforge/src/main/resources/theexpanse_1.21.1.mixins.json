@@ -11,6 +11,14 @@
     "LevelHeightAccessorMixin",
     "StrongholdStructureMixin",
     "OceanMonumentStructureMixin",
-    "MineshaftStructureMixin"
+    "MineshaftStructureMixin",
+    "litho.access.ChunkGeneratorAccessor",
+    "litho.access.HolderReferenceAccessor",
+    "litho.access.RandomStateAccessor",
+    "litho.server.DedicatedServerMixin",
+    "litho.server.GameTestServerMixin"
+  ],
+  "client": [
+    "litho.client.IntegratedServerMixin"
   ]
 }
