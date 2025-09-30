@@ -1,9 +1,10 @@
 import org.gradle.jvm.tasks.Jar
 
+val modVersion = rootProject.property("mod_version") as String
 val mcVersion = property("deps.minecraft") as String
 
 group = "com.cyberday1"
-version = "2.0.0+mc${mcVersion}-neoforge"
+version = "${modVersion}+mc${mcVersion}-neoforge"
 
 neoForge {
     version = "21.1.39-beta"
@@ -12,6 +13,7 @@ neoForge {
 
 tasks.named<Jar>("jar") {
     archiveBaseName.set("TectonicExpanded")
+    archiveVersion.set("${modVersion}+mc${mcVersion}-neoforge")
 }
 
 tasks.register("sanityCompile") {
